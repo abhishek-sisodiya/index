@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MaincompComponent implements OnInit {
 
   FieldType
-   MainContainer=[]
+  LabelName
    containers=[]
    ControlIndex = 1;
 	 ObjectCollection = [];	//json Object
@@ -29,11 +29,10 @@ export class MaincompComponent implements OnInit {
 
     var target = event.target
     this.FieldType = target.attributes.FieldType.value;
-    var LabelName = target.attributes.label.value;
+    this.LabelName = target.attributes.label.value;
 
     this.containers.push(this.containers.length);
-    this.MainContainer.push(this.MainContainer.length)
-
+    
    /*  if(this.FieldType=='CONTROL_TEXT')
 			{
       this.MainContainer.push(this.MainContainer.length)
