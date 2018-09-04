@@ -32,15 +32,7 @@ export class MaincompComponent implements OnInit {
 
     this.containers.push(this.containers.length);
 
-   /*  if(this.FieldType=='CONTROL_TEXT')
-			{
-      this.MainContainer.push(this.MainContainer.length)
-      }
-
-     if(this.FieldType=='CONTROL_DROPDOWN')
-			{
-				this.MainContainer.push(this.MainContainer.length)
-			} */
+   
    }
 
 }

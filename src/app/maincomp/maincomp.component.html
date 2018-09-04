@@ -35,7 +35,17 @@
 
 <!-- create childDiv -->
 <div [id]="'ChildDiv'+i" class = "childdivclass">
-CHILDDIV
-</div>
 
+  <!-- <ng-template *ngIf="{{FieldType}} === 'CONTROL_TEXT' "; then first; ></ng-template> -->
+
+  <ng-container let foo of {{FieldType}} [ngSwitch]=foo>
+    <div *ngSwitchCase="CONTROL_TEXT">First</div>
+    <div *ngSwitchCase="CONTROL_DROPDOWN">Second</div>
+    <div *ngSwitchDefault>Third</div>
+  </ng-container>
+
+  <!-- create inputText -->
+  <input #first type="text" class = "textValueClass" [id]="'textValue'+i"/>
+  
+</div>
 </div>
