@@ -24,7 +24,7 @@
 
 <!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- create mDivs -->
-<div *ngFor="let container of containers;let i=index" class="mdivs"  [id]="'mdiv'+i">
+<div *ngFor="let container of containers;let i=index" class="mdiv"  [id]="'mdiv'+i">
 
 <!-- create contentDivs -->
 <div  attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">
@@ -38,14 +38,46 @@
 
   <!-- <ng-template *ngIf="{{FieldType}} === 'CONTROL_TEXT' "; then first; ></ng-template> -->
 
-  <ng-container let foo of {{FieldType}} [ngSwitch]=foo>
-    <div *ngSwitchCase="CONTROL_TEXT">First</div>
-    <div *ngSwitchCase="CONTROL_DROPDOWN">Second</div>
-    <div *ngSwitchDefault>Third</div>
-  </ng-container>
+  <ng-container [ngSwitch]="FieldType[i]">
+    <input *ngSwitchCase="'CONTROL_TEXT'" #first type="text" class = "textValueClass" [id]="'textValue'+i"/>
+    
+    <select *ngSwitchCase="'CONTROL_DROPDOWN'" class = "selectClass" [id]="'dropdown' + i"> 
+      <option value="0">default</option>  
+      <option value="1">1</option>  
+      <option value="2">2</option>  
+      <option value="3">3</option> 
+       <option value="4">4</option>
+       </select>
 
+
+       <select *ngSwitchCase="'CONTROL_OPERATOR'" class = "selectClass" [id]="'dropdown' + i">    
+          <option value="0">default</option>  
+          <option value="1">1</option>  
+          <option value="2">2</option>  
+          <option value="3">3</option> 
+           <option value="4">4</option>
+           </select>
+      <input *ngSwitchCase="'CONTROL_OPERATOR'" #first type="text" class = "textValueClass" [id]="'textValue'+i"/>
+
+
+      <input  *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioYesClass" name="'condition'+i" [id]="'inputYes'+i" value="yes" /> 
+      <input *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioNoClass" [id]="'inputNo'+i" name="'condition'+i" value="no"/>no
+
+        <select *ngSwitchCase="'CONTROL_textOp'" class = "selectopClass" [id]="'dropdown'+i"> 
+        <option value="begin with">begin with</option>  
+        <option value="end with">end with</option>  
+        <option value="contain">contain</option>  
+        <option value="between">between</option> 
+        </select>
+      <input *ngSwitchCase="'CONTROL_textOp'" type="text" class = "textopClass" [id]="'textValue'+i"/>
+
+
+
+    <div *ngSwitchDefault>WITH KENDO</div>
+  </ng-container>
+ 
   <!-- create inputText -->
-  <input #first type="text" class = "textValueClass" [id]="'textValue'+i"/>
+  
   
 </div>
 </div>

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaincompComponent implements OnInit {
 
-  FieldType;
+  FieldType=[];
   LabelName = [];
    containers = [];
    ControlIndex = 1;
@@ -17,8 +17,9 @@ export class MaincompComponent implements OnInit {
   BtnApplyID_String = 8;	// substring of BtnApply id
   BtnCancelID_String = 9;	// substring of BtnCancel id
   MDivID_String = 4;	// substring of Mdiv id
-
+  testhtml="yes"
   noOfLabels = 0;
+  noOfFields = 0;
   constructor() { }
 
   ngOnInit() {
@@ -26,8 +27,8 @@ export class MaincompComponent implements OnInit {
 
   forDiv(event): void {
 
-    const  target = event.target;
-    this.FieldType = target.attributes.FieldType.value;
+    const target = event.target;
+    this.FieldType[this.noOfFields++] = target.attributes.FieldType.value;
     this.LabelName[this.noOfLabels++] = target.attributes.label.value;
 
     this.containers.push(this.containers.length);
