@@ -32,9 +32,9 @@ export class MaincompComponent implements OnInit {
     var LabelName = target.attributes.label.value;
 
     this.containers.push(this.containers.length);
-    
+    this.MainContainer.push(this.MainContainer.length)
 
-    if(this.FieldType=='CONTROL_TEXT')
+   /*  if(this.FieldType=='CONTROL_TEXT')
 			{
       this.MainContainer.push(this.MainContainer.length)
       }
@@ -42,7 +42,7 @@ export class MaincompComponent implements OnInit {
      if(this.FieldType=='CONTROL_DROPDOWN')
 			{
 				this.MainContainer.push(this.MainContainer.length)
-			}
+			} */
    }
   
 }

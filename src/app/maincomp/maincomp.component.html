@@ -22,11 +22,12 @@
 </div>
 
 
+
 <!-- create mDivs -->
-<div class="mdivs" *ngFor="let container of containers; let i=index" [id]="'mdiv'+i"></div>
+<div *ngFor="let container of containers;let i=index" class="mdivs"  [id]="'mdiv'+i">
 
 <!-- create contentDivs -->
-<div   attr.fieldType = "{{FieldType}}" *ngFor="let container of MainContainer; let i=index" class = "contentDivClass" [id]="'contentDiv'+i"></div>
 
- 
+<div  attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">asdfsafsaasf</div>
 
+</div>
