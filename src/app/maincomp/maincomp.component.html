@@ -22,7 +22,7 @@
 </div>
 
 
-
+<!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- create mDivs -->
 <div *ngFor="let container of containers;let i=index" class="mdivs"  [id]="'mdiv'+i">
 
@@ -32,4 +32,10 @@
 <!-- create label -->
 <label [id]="'label'+i">{{LabelName}}</label>
 </div>
+
+<!-- create childDiv -->
+<div [id]="'ChildDiv'+i" class = "childdivclass">
+CHILDDIV
+</div>
+
 </div>
