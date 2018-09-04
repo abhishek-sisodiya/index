@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MaincompComponent } from './maincomp/maincomp.component';
-import { MenuModule } from '@progress/kendo-angular-menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -15,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    MenuModule,
     BrowserAnimationsModule
   ],
   providers: [],
