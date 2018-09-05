@@ -15,7 +15,7 @@ export class MaincompComponent implements OnInit {
   FieldType=[]; //attr.FieldType name
   LabelName = []; //attr.Label name
   containers = []; //Holding Mdivs
-
+  //ControlIndex = 0;
   noOfLabels = 0; //Incrementer for LabelName[]
   noOfFields = 0; //Incrementer for FieldType[]
 
@@ -65,6 +65,13 @@ export class MaincompComponent implements OnInit {
  
     this.ChildDivExpanded[event] = true
     this.BtnApplyExpanded[event] = true
+
+  }
+
+  buttonClear(): any {
+ 
+    this.MdivExpanded.fill(false);
+   // this.ControlIndex = 0;
 
   }
   

@@ -15,9 +15,9 @@
                   </ul>
              </li>
         </ul>
-      <input type="button" id="getAll" value="GET VALUES" onclick="getValues();">
-      <input type="button" id="clearAll" value="CLEAR ALL" onclick="buttonClear();" >
-      <input type="button" id="createControl_FromDatabase" value="createControl_FromDatabase" onclick="createControl_FromDatabase();" >
+      <input type="button" id="getAll" value="GET VALUES" (click)="getValues()">
+      <input type="button" id="clearAll" value="CLEAR ALL" (click)="buttonClear(x)" >
+      <input type="button" id="createControl_FromDatabase" value="createControl_FromDatabase" (click)="createControl_FromDatabase()" >
       <input type="text" id="inputControl" >
 </div>
 
@@ -25,8 +25,8 @@
 <!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- mDivs start -->
 <!-- <ng-container *ngIf="showMdiv"> -->
-    
-  <div *ngFor="let container of containers;let i=index">
+ 
+<div *ngFor="let container of containers; let i = index ">
 <div *ngIf=" MdivExpanded[i] == true "   class="mdiv"  [id]="'mdiv'+i">
    
 <!-- contentDivs start -->
