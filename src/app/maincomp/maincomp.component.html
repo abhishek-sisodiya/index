@@ -27,21 +27,21 @@
 <!-- <ng-container *ngIf="showMdiv"> -->
     
 <div *ngFor="let container of containers;let i=index"  class="mdiv"  [id]="'mdiv'+i">
-
+   
 <!-- contentDivs start -->
-<div  attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">
+<div (click)="contentDiv(i)" attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">
 
 <!-- label -->
 <label [id]="'label'+i">{{LabelName[i]}}</label>
 
 <!-- span -->
-<span #spanwa1 [id]="'span'+ i">{{SpanArray1[i]}} </span>
-<span #spanwa2 [id]="'span'+ i">{{SpanArray2[i]}} </span>
+<span  [id]="'span'+ i">{{SpanArray1[i]}} </span>
+<span  [id]="'span'+ i">{{SpanArray2[i]}} </span>
 
 </div>
 
 <!-- childDiv starts -->
-<div [id]="'ChildDiv'+i" class = "childdivclass">
+<div *ngIf=" ChildDivExpanded[i] == true " [id]="'ChildDiv'+i" class = "childdivclass">
 
   <!-- switch cases for different fieldTypes -->
   <ng-container [ngSwitch]="FieldType[i]">
@@ -86,7 +86,7 @@
 </div> 
 
   <!-- btnApply -->
-  <input  type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(spanwa)" class="btnApplyClass">
+  <input  type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(i)" class="btnApplyClass">
 
   <!-- btnCancel  -->
   <input  type="button" [id]="'btnCancel'+i" value="CANCEL" (click)="doBtnCancel(i)" class="btnBtnClass">

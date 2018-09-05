@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaincompComponent implements OnInit {
 
+  ChildDivExpanded =[]
   InputValues
   SpanArray1 = []
   SpanArray2 = []
@@ -26,10 +27,15 @@ export class MaincompComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
+   
+    
   }
 
   forDiv(event): void {
-
+    
+    this.ChildDivExpanded.push(true)
+    
     this.FieldType[this.noOfFields++] = event.target.attributes.FieldType.value;
     this.LabelName[this.noOfLabels++] = event.target.attributes.label.value;
 
@@ -37,10 +43,9 @@ export class MaincompComponent implements OnInit {
 
    }
 
-   doBtnApply(spanwa): void {
-    // this.InputValues = spanwa.value
-    
-    
+   doBtnApply(event): void {
+  
+    this.ChildDivExpanded[event] = false
   
   /*   console.log(this.InputValues);
     this.SpanArray[event] = this.InputValues
@@ -60,6 +65,15 @@ export class MaincompComponent implements OnInit {
     
   } */
 
+
+  contentDiv(event): void {
+ 
+    console.log(this.ChildDivExpanded);
+    
+    this.ChildDivExpanded[event] = true
+    console.log(this.ChildDivExpanded);
+
+  }
   
 
 }
