@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./maincomp.component.css']
 })
 export class MaincompComponent implements OnInit {
-
-  Index_Number;
+//mobile=[]
+  public selectedValue;
+  InputValues
+  InputValuesArray = []
+  deleteMdiv =[];
   FieldType=[];
   LabelName = [];
   containers = [];
@@ -15,12 +18,12 @@ export class MaincompComponent implements OnInit {
   ObjectCollection = [];	// json Object
   MDivID; // id of Mdivs
   MaxOfControlIndex = 1;
-  BtnApplyID_String = 8;	// substring of BtnApply id
-  BtnCancelID_String = 9;	// substring of BtnCancel id
   MDivID_String = 4;	// substring of Mdiv id
   
   noOfLabels = 0;
   noOfFields = 0;
+  InputValueIncrement = 0;
+
   constructor() { }
 
   ngOnInit() {
@@ -36,10 +39,26 @@ export class MaincompComponent implements OnInit {
    }
 
    doBtnApply(event): void {
+  
+    console.log(this.InputValues);
+    this.InputValuesArray[event] = this.InputValues
+    console.log(this.InputValuesArray);
 
-    this.Index_Number = event.target.attributes.id.value.substring( [this.BtnApplyID_String ] )
-    
    }
+
+   doBtnCancel(event): void {
+ 
+    this.deleteMdiv[event] = false;
+
+   }
+
+   onKey(event: any) {
+
+    this.InputValues = event.target.value ;
+    
+  }
+
+  
 
 }
 
