@@ -14,7 +14,7 @@ export class MaincompComponent implements OnInit {
   SpanArray2 = [] //Span2 Values
   FieldType=[]; //attr.FieldType name
   LabelName = []; //attr.Label name
-  containers = []; //Holding Mdivs
+  containers = []; //Holding Mdivs id
   //ControlIndex = 0;
   noOfLabels = 0; //Incrementer for LabelName[]
   noOfFields = 0; //Incrementer for FieldType[]
@@ -72,7 +72,10 @@ export class MaincompComponent implements OnInit {
  
     this.MdivExpanded.fill(false);
    // this.ControlIndex = 0;
-
+   console.log(this.containers);
+   this.containers=[]
+  console.log(this.containers);
+   
   }
   
 
