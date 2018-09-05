@@ -6,11 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./maincomp.component.css']
 })
 export class MaincompComponent implements OnInit {
-//mobile=[]
-  public selectedValue;
+
   InputValues
-  InputValuesArray = []
-  deleteMdiv =[];
+  SpanArray1 = []
+  SpanArray2 = []
   FieldType=[];
   LabelName = [];
   containers = [];
@@ -38,25 +37,28 @@ export class MaincompComponent implements OnInit {
 
    }
 
-   doBtnApply(event): void {
+   doBtnApply(spanwa): void {
+    // this.InputValues = spanwa.value
+    
+    
   
-    console.log(this.InputValues);
-    this.InputValuesArray[event] = this.InputValues
-    console.log(this.InputValuesArray);
+  /*   console.log(this.InputValues);
+    this.SpanArray[event] = this.InputValues
+    console.log(this.SpanArray); */
 
    }
 
    doBtnCancel(event): void {
  
-    this.deleteMdiv[event] = false;
+
 
    }
 
-   onKey(event: any) {
+/*    onKey(event: any) {
 
     this.InputValues = event.target.value ;
     
-  }
+  } */
 
   
 

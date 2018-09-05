@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MaincompComponent } from './maincomp/maincomp.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaincompComponent
   ],
   imports: [
-  //  FormsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule
   ],
