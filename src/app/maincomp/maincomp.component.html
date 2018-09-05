@@ -86,7 +86,7 @@
 </div> 
 
   <!-- btnApply -->
-  <input  type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(i)" class="btnApplyClass">
+  <input *ngIf=" BtnApplyExpanded[i] == true " type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(i)" class="btnApplyClass">
 
   <!-- btnCancel  -->
   <input  type="button" [id]="'btnCancel'+i" value="CANCEL" (click)="doBtnCancel(i)" class="btnBtnClass">
