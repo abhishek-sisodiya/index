@@ -7,36 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaincompComponent implements OnInit {
 
-  ChildDivExpanded =[]
-  BtnApplyExpanded =[]
-  InputValues
-  SpanArray1 = []
-  SpanArray2 = []
-  FieldType=[];
-  LabelName = [];
-  containers = [];
-  ControlIndex = 1;
-  ObjectCollection = [];	// json Object
-  MDivID; // id of Mdivs
-  MaxOfControlIndex = 1;
-  MDivID_String = 4;	// substring of Mdiv id
-  
-  noOfLabels = 0;
-  noOfFields = 0;
-  InputValueIncrement = 0;
+  MdivExpanded = [] //boolean values to hide Mdivs on BtnCancel click
+  ChildDivExpanded =[] //boolean values to hide ChildDiv on BtnApply click
+  BtnApplyExpanded =[] //boolean values to hide ApplyBtn on BtnApply click
+  SpanArray1 = [] //Span1 Values
+  SpanArray2 = [] //Span2 Values
+  FieldType=[]; //attr.FieldType name
+  LabelName = []; //attr.Label name
+  containers = []; //Holding Mdivs
+
+  noOfLabels = 0; //Incrementer for LabelName[]
+  noOfFields = 0; //Incrementer for FieldType[]
 
   constructor() { }
 
   ngOnInit() {
-    
-   
-    
   }
 
   forDiv(event): void {
     
     this.ChildDivExpanded.push(true)
     this.BtnApplyExpanded.push(true)
+    this.MdivExpanded.push(true)
     
     this.FieldType[this.noOfFields++] = event.target.attributes.FieldType.value;
     this.LabelName[this.noOfLabels++] = event.target.attributes.label.value;
@@ -54,14 +46,12 @@ export class MaincompComponent implements OnInit {
     this.SpanArray[event] = this.InputValues
     console.log(this.SpanArray); */
 
-
-
    }
 
    doBtnCancel(event): void {
- 
 
-
+    this.MdivExpanded[event] = false
+   
    }
 
 /*    onKey(event: any) {

@@ -26,7 +26,8 @@
 <!-- mDivs start -->
 <!-- <ng-container *ngIf="showMdiv"> -->
     
-<div *ngFor="let container of containers;let i=index"  class="mdiv"  [id]="'mdiv'+i">
+  <div *ngFor="let container of containers;let i=index">
+<div *ngIf=" MdivExpanded[i] == true "   class="mdiv"  [id]="'mdiv'+i">
    
 <!-- contentDivs start -->
 <div (click)="contentDiv(i)" attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">
@@ -67,8 +68,8 @@
     <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_OPERATOR'" #first type="text" class = "textValueClass" [id]="'textValue'+i"/>
 
 
-      <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioYesClass" name="'condition'+i" [id]="'inputYes'+i" value="yes" /> 
-      <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioNoClass" [id]="'inputNo'+i" name="'condition'+i" value="no"/>
+      <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioYesClass" [name]="'condition'+i" [id]="'inputYes'+i" value="yes" /> 
+      <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class = "radioNoClass" [id]="'inputNo'+i" [name]="'condition'+i" value="no"/>
 
     <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_textOp'" class = "selectopClass" [id]="'dropdown'+i"> 
         <option value="begin with">begin with</option>  
@@ -92,5 +93,5 @@
   <input  type="button" [id]="'btnCancel'+i" value="CANCEL" (click)="doBtnCancel(i)" class="btnBtnClass">
 
 </div>
-
+</div>
 <!-- </ng-container> -->
