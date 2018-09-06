@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { localeInfo } from '@telerik/kendo-intl';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-maincomp',
@@ -21,6 +22,9 @@ export class MaincompComponent implements OnInit {
   noOfFields = 0; //Incrementer for FieldType[]
   MultiSelectdata = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan']; //itmes for kendo multiSelect
   // items = ['a','b','c','d','e'] //for kendo Menu
+  item = []
+  ObjectCollection = []
+    
 
   constructor() { }
 
@@ -70,10 +74,10 @@ export class MaincompComponent implements OnInit {
 
     this.containers = []
     console.log(this.containers);
-    
+
     // this.containers.fill(false);
     // this.containers = this.containers.filter(Boolean)
-    
+
   }
 
   /*   trackByFn(index,item){
@@ -85,16 +89,35 @@ export class MaincompComponent implements OnInit {
 
   getValues(): void {
 
-    console.log(this.containers.filter(Boolean));
-    console.log(this.BtnApplyExpanded);
-    console.log(this.containers);
-
-
+   
     for (let i: number = 0; i < this.containers.length; i++) {
+      this.item = []
       if (this.BtnApplyExpanded[i] != this.containers[i]) {
         if (this.containers[i] != 'DeletedDiv') {
-          console.log("JSON saved for div", i);
+          if (this.SpanArray1[i] != empty && this.SpanArray1[i] != undefined) {
+            // ObjectCollection[i] = this.SpanArray1[i]
+            this.item ["TypeControl"] = this.FieldType[i];
+            this.item ["SeqNumber"] = i;
+            this.item ["LabelName"] = this.LabelName[i];
+            this.item ["Value1"] = this.SpanArray1[i];
+            this.item ["Value2"] = this.SpanArray2[i];
+            this.ObjectCollection[i] = this.item
+            if(this.item["Value2"] == undefined)
+            {
+              delete this.item["Value2"]
+            }
+            console.log("JSON saved for div", i);
+            
+          }
+          else {
+            console.log("Please select some value for div", i);
+
+          }
+
+
         }
+
+
       }
 
       else {
@@ -103,6 +126,12 @@ export class MaincompComponent implements OnInit {
       }
 
     }
+
+
+    console.log(this.ObjectCollection);
+    
+
+    // console.log(ObjectCollection);
 
   }
 
