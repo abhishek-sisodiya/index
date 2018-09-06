@@ -7,17 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { IntlModule } from '@progress/kendo-angular-intl';
-import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+// import { MenusModule } from '@progress/kendo-angular-menu';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-    //CommonModule,
     MaincompComponent
   ],
   imports: [
+    // MenusModule,
+    // CommonModule,
     IntlModule,
     DropDownsModule,
     DatePickerModule,

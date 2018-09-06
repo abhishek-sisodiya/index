@@ -19,15 +19,22 @@
       <input type="button" id="clearAll" value="CLEAR ALL" (click)="buttonClear(x)" >
       <input type="button" id="createControl_FromDatabase" value="createControl_FromDatabase" (click)="createControl_FromDatabase()" >
       <input type="text" id="inputControl" >
+
+<!--       <kendo-menu [items]="items">
+      </kendo-menu> -->
+
 </div>
+
+
 
 
 <!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- mDivs start -->
 <!-- <ng-container *ngIf="showMdiv"> -->
   <!-- *ngFor="let i of containers" -->
-<div *ngFor="let i of containers">
-<div *ngIf=" MdivExpanded[i] == true "   class="mdiv"  [id]="'mdiv'+i">
+  <!-- ; trackBy: trackByFn -->
+<div *ngFor="let container of containers; let i = index">
+<div *ngIf=" container == true "   class="mdiv"  [id]="'mdiv'+i">
    
 <!-- contentDivs start -->
 <div (click)="contentDiv(i)" attr.fieldType = "{{FieldType}}"  class = "contentDivClass" [id]="'contentDiv'+i">
