@@ -25,8 +25,8 @@
 <!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- mDivs start -->
 <!-- <ng-container *ngIf="showMdiv"> -->
- 
-<div *ngFor="let container of containers; let i = index" >
+  <!-- *ngFor="let i of containers" -->
+<div *ngFor="let i of containers">
 <div *ngIf=" MdivExpanded[i] == true "   class="mdiv"  [id]="'mdiv'+i">
    
 <!-- contentDivs start -->
@@ -78,6 +78,22 @@
         <option value="between">between</option> 
     </select>
     <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_textOp'" type="text" class = "textopClass" [id]="'textValue'+i"/>
+
+
+        <kendo-datepicker
+        
+        [format]="'dd-MMM-yyyy'"
+          [(ngModel)]="SpanArray1[i]"
+          *ngSwitchCase="'CONTROL_DATETIME'"
+        ></kendo-datepicker>
+        
+        <kendo-datepicker
+        [format]="'dd-MMM-yyyy'"
+          [(ngModel)]="SpanArray2[i]"
+          *ngSwitchCase="'CONTROL_DATETIME'"
+        ></kendo-datepicker>
+      
+
 
     <div  *ngSwitchDefault>WITH KENDO</div>
     

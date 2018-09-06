@@ -34,10 +34,12 @@ export class MaincompComponent implements OnInit {
     this.LabelName[this.noOfLabels++] = event.target.attributes.label.value;
 
     this.containers.push(this.containers.length);
-
+    console.log(this.containers);
    }
 
    doBtnApply(event): void {
+     
+     
   
     this.ChildDivExpanded[event] = false
     this.BtnApplyExpanded[event] = false
