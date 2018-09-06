@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { IntlModule } from '@progress/kendo-angular-intl';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { IntlModule } from '@progress/kendo-angular-intl';
   ],
   imports: [
     IntlModule,
+    DropDownsModule,
     DatePickerModule,
     FormsModule,
     BrowserModule,

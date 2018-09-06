@@ -18,10 +18,11 @@ export class MaincompComponent implements OnInit {
   //ControlIndex = 0;
   noOfLabels = 0; //Incrementer for LabelName[]
   noOfFields = 0; //Incrementer for FieldType[]
-
+  MultiSelectdata= [];
   constructor() { }
 
   ngOnInit() {
+    this.MultiSelectdata = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan'];
   }
 
   forDiv(event): void {

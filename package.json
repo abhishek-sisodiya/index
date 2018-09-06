@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@progress/kendo-angular-dateinputs": "^3.4.4",
+    "@progress/kendo-angular-dropdowns": "^3.0.3",
     "@progress/kendo-angular-inputs": "^3.2.1",
     "@progress/kendo-angular-intl": "^1.5.0",
     "@progress/kendo-angular-l10n": "^1.1.0",

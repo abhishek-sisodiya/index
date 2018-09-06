@@ -94,9 +94,13 @@
         ></kendo-datepicker>
       
 
+        <kendo-multiselect [data]="MultiSelectdata"
+        [(ngModel)]="SpanArray1[i]"
+      *ngSwitchCase="'CONTROL_TAG'"
+    >
+  </kendo-multiselect>  
 
-    <div  *ngSwitchDefault>WITH KENDO</div>
-    
+  <!-- ng-container ends -->
   </ng-container>
  
   <!-- ChildDiv end -->
