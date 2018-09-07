@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { localeInfo } from '@telerik/kendo-intl';
 import { empty } from 'rxjs';
+import { sequence } from '@angular/animations';
 
 @Component({
   selector: 'app-maincomp',
@@ -23,62 +24,86 @@ export class MaincompComponent implements OnInit {
   noOfFields = 0; //Incrementer for FieldType[]
   MultiSelectdata = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan']; //itmes for kendo multiSelect
   // items = ['a','b','c','d','e'] //for kendo Menu
-  item = [] //For JsonObj
+  item = {} //For JsonObj
   ObjectCollection = [] //JsonObj
   public source: Array<string> = ['textName', 'List', 'operation', 'dateTime', 'bool', 'tag', 'textOp'];
   DropdownData = []
-
+  ValueFromInputText
+  json_object_2
+  ControlIndex = 0
 
   constructor() {
     this.DropdownData = this.source.slice();
-   }
+  }
 
   ngOnInit() { }
 
 
-  public filterChange(filter: any): void {    
+/*   public filterChange(filter: any): void {
     this.DropdownData = this.source.filter((s) => s.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
-}
+  } */
 
 
   forDiv(event): void {
-    console.log(this.containers);
 
-    this.ChildDivExpanded.push(true)
-    this.BtnApplyExpanded.push(true)
-    this.containers.push(true);
+    this.ChildDivExpanded[this.ControlIndex] = true
+    this.BtnApplyExpanded[this.ControlIndex] = true
+    this.containers[this.ControlIndex] = true
 
-    this.LabelName[this.noOfLabels++] = event.item.text;
+    this.LabelName[this.ControlIndex] = event.item.text;
 
-    if(event.item.text == 'textName'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[0]
-    }
-    if(event.item.text == 'List'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[1]
-    }
-    if(event.item.text == 'operation'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[2]
-    }
-    if(event.item.text == 'dateTime'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[3]
-    }
-    if(event.item.text == 'bool'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[4]
-    }
-    if(event.item.text == 'tag'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[5]
-    }
-    if(event.item.text == 'textOp'){
-      this.FieldType[this.noOfFields++] = this.ForFieldType[6]
-    }
-    
+    /*  for (let i: number = 0; i < this.containers.length; i++) {
+       if (event.item.text == this.source[i]) {
+         this.FieldType[this.noOfFields++] = this.ForFieldType[i]
+       }
+     } */
 
+    if (event.item.text == 'textName') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+    }
+    if (event.item.text == 'List') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[1]
+    }
+    if (event.item.text == 'operation') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[2]
+    }
+    if (event.item.text == 'dateTime') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+    }
+    if (event.item.text == 'bool') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+    }
+    if (event.item.text == 'tag') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+    }
+    if (event.item.text == 'textOp') {
+      this.FieldType[this.ControlIndex] = this.ForFieldType[6]
+    }
+
+    this.ControlIndex++
   }
 
   doBtnApply(event): void {
 
-    this.ChildDivExpanded[event] = false
-    this.BtnApplyExpanded[event] = false
+    if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
+      if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
+        console.log("please fill values");
+      }
+      else {
+        this.ChildDivExpanded[event] = false
+        this.BtnApplyExpanded[event] = false
+      }
+    }
+    else {
+      if (this.SpanArray1[event] == null) {
+        console.log("please fill values");
+      }
+      else {
+        this.ChildDivExpanded[event] = false
+        this.BtnApplyExpanded[event] = false
+      }
+    }
+
 
   }
 
@@ -95,6 +120,13 @@ export class MaincompComponent implements OnInit {
       
     } */
 
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //      (Both can be used)       
+    k = event.keyCode;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123));
+  }
+
 
   contentDiv(event): void {
 
@@ -105,9 +137,9 @@ export class MaincompComponent implements OnInit {
 
   buttonClear(): any {
     // .fill to empty arrray
- 
+
     this.containers = [];
-    
+
     console.log(this.containers);
 
     // this.containers.fill(false);
@@ -124,14 +156,12 @@ export class MaincompComponent implements OnInit {
 
   getValues(): void {
 
-
     for (let i: number = 0; i < this.containers.length; i++) {
-      this.item = []
+      this.item = {}
       if (this.BtnApplyExpanded[i] != this.containers[i]) {
         if (this.containers[i] != 'DeletedDiv') {
-          if (this.SpanArray1[i] != empty && this.SpanArray1[i] != undefined) {
+          if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty ) {
             // ObjectCollection[i] = this.SpanArray1[i]
-            this.item["TypeControl"] = this.FieldType[i];
             this.item["SeqNumber"] = i;
             this.item["LabelName"] = this.LabelName[i];
             this.item["Value1"] = this.SpanArray1[i];
@@ -154,12 +184,91 @@ export class MaincompComponent implements OnInit {
         console.log("Please APPLY on div", i);
       }
     }
-
-
     console.log(this.ObjectCollection);
 
+  }
+
+
+  createControl_FromDatabase(): void {
+
+    //.mdiv remove
+    this.containers = []
+
+    this.json_object_2 = JSON.parse(this.ValueFromInputText);
+
+    var newArray = new Array();
+    for (var i = 0; i < this.json_object_2.length; i++) {
+      if (this.json_object_2[i]) {
+        newArray.push(this.json_object_2[i]);
+      }
+    }
+    console.log(newArray);
+
+    this.fromJSON(newArray);
+
+  }
+
+
+  fromJSON(jsonObj): void {
+
+    var Array_SeqNumber = [];
+
+    jsonObj.forEach(index => {
+
+      var LabelName = index.LabelName;
+      var SeqNumber = index.SeqNumber;
+      var Value1 = index.Value1;
+      var Value2 = index.Value2;
+      var Operator = index.Operator;
+
+      this.ChildDivExpanded[SeqNumber] = true
+      this.BtnApplyExpanded[SeqNumber] = true
+      this.containers[SeqNumber] = true
+
+
+      this.LabelName[SeqNumber] = LabelName;
+
+      this.SpanArray1[SeqNumber] = Value1
+
+      if (Value2 != undefined) {
+        this.SpanArray2[SeqNumber] = Value2
+      }
+      else {
+        this.SpanArray2[SeqNumber] = Operator
+      }
+
+
+      this.ChildDivExpanded[SeqNumber] = false
+      this.BtnApplyExpanded[SeqNumber] = false
+
+      if (LabelName == 'textName') {
+        this.FieldType[SeqNumber] = this.ForFieldType[0]
+      }
+      if (LabelName == 'List') {
+        this.FieldType[SeqNumber] = this.ForFieldType[1]
+      }
+      if (LabelName == 'operation') {
+        this.FieldType[SeqNumber] = this.ForFieldType[2]
+      }
+      if (LabelName == 'dateTime') {
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
+      }
+      if (LabelName == 'bool') {
+        this.FieldType[SeqNumber] = this.ForFieldType[4]
+      }
+      if (LabelName == 'tag') {
+        this.FieldType[SeqNumber] = this.ForFieldType[5]
+      }
+      if (LabelName == 'textOp') {
+        this.FieldType[SeqNumber] = this.ForFieldType[6]
+      }
+      Array_SeqNumber.push(SeqNumber);
+
+    });
+
+    var MaxOfControlIndex = Math.max.apply(Math, Array_SeqNumber);
+    this.ControlIndex = MaxOfControlIndex + 1;
 
   }
 
 }
-
