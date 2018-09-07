@@ -1,115 +1,112 @@
-<div id="example">
-  <ul id="menu">
-    <li>
-      Products
-      <ul>
-        <li label="textName" fieldType="CONTROL_TEXT" (click)="forDiv($event)">textName</li>
-        <li label="List" fieldType="CONTROL_DROPDOWN" (click)="forDiv($event)">List</li>
-        <li label="operation" fieldType="CONTROL_OPERATOR" (click)="forDiv($event)">operation</li>
-        <li label="dateTime" fieldType="CONTROL_DATETIME" (click)="forDiv($event)">dateTime</li>
-        <li label="bool" fieldType="CONTROL_BOOLEAN" (click)="forDiv($event)">bool</li>
-        <li label="tag" fieldType="CONTROL_TAG" (click)="forDiv($event)">tag</li>
-        <li label="textOp" fieldType="CONTROL_textOp" (click)="forDiv($event)">textOp</li>
-      </ul>
-    </li>
-  </ul>
+
+<!-- <div>
+<kendo-dropdownlist [data]="DropdownData" [filterable]="true" (selectionChange)="forDiv($event)" (filterChange)="filterChange($event)">
+</kendo-dropdownlist>
+</div> -->
+
+<kendo-menu [vertical]="true" (select)="forDiv($event)" #menu>
+  <kendo-menu-item text="textName">
+  </kendo-menu-item>
+  <kendo-menu-item text="List">
+  </kendo-menu-item>
+</kendo-menu>
+
+<div>
   <input type="button" id="getAll" value="GET VALUES" (click)="getValues()">
-  <input type="button" id="clearAll" value="CLEAR ALL" (click)="buttonClear(x)">
+  <input type="button" id="clearAll" value="CLEAR ALL" (click)="buttonClear()" (click)="myElement.remove()" >
   <input type="button" id="createControl_FromDatabase" value="createControl_FromDatabase" (click)="createControl_FromDatabase()">
   <input type="text" id="inputControl">
-
-  <!--       <kendo-menu [items]="items">
-      </kendo-menu> -->
-
 </div>
 
-
-
+<!--       <kendo-menu [items]="items">
+      </kendo-menu> -->
 
 <!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
 <!-- mDivs start -->
 <!-- <ng-container *ngIf="showMdiv"> -->
 <!-- *ngFor="let i of containers" -->
 <!-- ; trackBy: trackByFn -->
-<div *ngFor="let container of containers; let i = index">
-  <div *ngIf=" container == true " class="mdiv" [id]="'mdiv'+i">
+<div >
+  <div *ngFor="let container of containers; let i = index" #myElement>
+    <div *ngIf=" container == true " class="mdiv" [id]="'mdiv'+i">
 
-    <!-- contentDivs start -->
-    <div (click)="contentDiv(i)" attr.fieldType="{{FieldType}}" class="contentDivClass" [id]="'contentDiv'+i">
+      <!-- contentDivs start -->
+      <div (click)="contentDiv(i)" attr.fieldType="{{FieldType}}" class="contentDivClass" [id]="'contentDiv'+i">
 
-      <!-- label -->
-      <label [id]="'label'+i">{{LabelName[i]}}</label>
+        <!-- label -->
+        <label [id]="'label'+i">{{LabelName[i]}}</label>
 
-      <!-- span -->
-      <span [id]="'span'+ i">{{SpanArray1[i]}} </span>
-      <span [id]="'span'+ i">{{SpanArray2[i]}} </span>
+        <!-- span -->
+        <span [id]="'span'+ i">{{SpanArray1[i]}} </span>
+        <span [id]="'span'+ i">{{SpanArray2[i]}} </span>
+
+      </div>
+
+      <!-- childDiv starts -->
+      <div *ngIf=" ChildDivExpanded[i] == true " [id]="'ChildDiv'+i" class="childdivclass">
+
+        <!-- switch cases for different fieldTypes -->
+        <ng-container [ngSwitch]="FieldType[i]">
+
+          <!-- (input)="onKey($event)" || [(ngModel)]="SpanArray[i]" -->
+          <input [(ngModel)]="SpanArray1[i]" type="text" *ngSwitchCase="'CONTROL_TEXT'" class="textValueClass" [id]="'textValue'+i" />
+
+          <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_DROPDOWN'" class="selectClass" [id]="'dropdown' + i">
+            <option value="0">default</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+
+          <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_OPERATOR'" class="selectClass" [id]="'dropdown' + i">
+            <option value="0">default</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_OPERATOR'" #first type="text" class="textValueClass"
+            [id]="'textValue'+i" />
+
+
+          <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioYesClass"
+            [name]="'condition'+i" [id]="'inputYes'+i" value="yes" />
+          <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioNoClass" [id]="'inputNo'+i"
+            [name]="'condition'+i" value="no" />
+
+          <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_textOp'" class="selectopClass" [id]="'dropdown'+i">
+            <option value="begin with">begin with</option>
+            <option value="end with">end with</option>
+            <option value="contain">contain</option>
+            <option value="between">between</option>
+          </select>
+          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_textOp'" type="text" class="textopClass" [id]="'textValue'+i" />
+
+
+          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
+
+          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
+
+
+          <kendo-multiselect [data]="MultiSelectdata" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_TAG'">
+          </kendo-multiselect>
+
+          <!-- ng-container ends -->
+        </ng-container>
+
+        <!-- ChildDiv end -->
+      </div>
+
+      <!-- btnApply -->
+      <input *ngIf=" BtnApplyExpanded[i] == true " type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(i)"
+        class="btnApplyClass">
+
+      <!-- btnCancel  -->
+      <input type="button" [id]="'btnCancel'+i" value="CANCEL" (click)="doBtnCancel(i)" class="btnBtnClass">
 
     </div>
-
-    <!-- childDiv starts -->
-    <div *ngIf=" ChildDivExpanded[i] == true " [id]="'ChildDiv'+i" class="childdivclass">
-
-      <!-- switch cases for different fieldTypes -->
-      <ng-container [ngSwitch]="FieldType[i]">
-
-        <!-- (input)="onKey($event)" || [(ngModel)]="SpanArray[i]" -->
-        <input [(ngModel)]="SpanArray1[i]" type="text" *ngSwitchCase="'CONTROL_TEXT'" class="textValueClass" [id]="'textValue'+i"
-        />
-
-        <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_DROPDOWN'" class="selectClass" [id]="'dropdown' + i">
-          <option value="0">default</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-
-        <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_OPERATOR'" class="selectClass" [id]="'dropdown' + i">
-          <option value="0">default</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-        <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_OPERATOR'" #first type="text" class="textValueClass" [id]="'textValue'+i"
-        />
-
-
-        <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioYesClass" [name]="'condition'+i"
-          [id]="'inputYes'+i" value="yes" />
-        <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioNoClass" [id]="'inputNo'+i"
-          [name]="'condition'+i" value="no" />
-
-        <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_textOp'" class="selectopClass" [id]="'dropdown'+i">
-          <option value="begin with">begin with</option>
-          <option value="end with">end with</option>
-          <option value="contain">contain</option>
-          <option value="between">between</option>
-        </select>
-        <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_textOp'" type="text" class="textopClass" [id]="'textValue'+i"
-        />
-
-
-        <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
-
-        <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
-
-
-        <kendo-multiselect [data]="MultiSelectdata" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_TAG'">
-        </kendo-multiselect>
-
-        <!-- ng-container ends -->
-      </ng-container>
-
-      <!-- ChildDiv end -->
-    </div>
-
-    <!-- btnApply -->
-    <input *ngIf=" BtnApplyExpanded[i] == true " type="button" [id]="'btnApply'+i" value="APPLY" (click)="doBtnApply(i)" class="btnApplyClass">
-
-    <!-- btnCancel  -->
-    <input type="button" [id]="'btnCancel'+i" value="CANCEL" (click)="doBtnCancel(i)" class="btnBtnClass">
-
   </div>
-</div>
 <!-- </ng-container> -->
+<!-- </ng-container> -->
+</div>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
+ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { MaincompComponent } from './maincomp/maincomp.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from '@progress/kendo-angular-dateinputs';
 import { IntlModule } from '@progress/kendo-angular-intl';
  import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
-// import { MenusModule } from '@progress/kendo-angular-menu';
+
+ import { MenusModule } from '@progress/kendo-angular-menu';
 
 
 @NgModule({
@@ -17,8 +18,8 @@ import { IntlModule } from '@progress/kendo-angular-intl';
     MaincompComponent
   ],
   imports: [
-    // MenusModule,
-    // CommonModule,
+     MenusModule,
+     CommonModule,
     IntlModule,
     DropDownsModule,
     DatePickerModule,
