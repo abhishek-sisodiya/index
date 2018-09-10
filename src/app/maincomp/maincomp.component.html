@@ -48,6 +48,8 @@
         <!-- label -->
         <label [id]="'label'+i">{{LabelName[i]}}</label>
 
+        <span id="colon"> : </span>
+
         <!-- span -->
         <span [id]="'span'+ i">{{SpanArray1[i]}} </span>
         <span *ngIf="FieldType[i] == 'CONTROL_OPERATOR'" [id]="'span'+ i">{{SpanArray2[i]}} </span>
@@ -74,19 +76,23 @@
           </select>
 
           <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_OPERATOR'" class="selectClass" [id]="'dropdown' + i">
-            <option value="<"><</option>
-            <option value=">">></option>
-            <option value="<="><=</option>
-            <option value=">=">>=</option>
+            <option value="<">
+              <</option> <option value=">">>
+            </option>
+            <option value="<=">
+              <=</option> <option value=">=">>=
+            </option>
             <option value="=">=</option>
           </select>
-          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_OPERATOR'"  type="number" class="textValueClass"
+          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_OPERATOR'" type="number" class="textValueClass"
             [id]="'textValue'+i" />
 
-          <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioYesClass"
-            [name]="'condition'+i" [id]="'inputYes'+i" value="yes" />
-          <input [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_BOOLEAN'" type="radio" class="radioNoClass" [id]="'inputNo'+i"
-            [name]="'condition'+i" value="no" />
+          <div *ngSwitchCase="'CONTROL_BOOLEAN'">
+            YES <input [(ngModel)]="SpanArray1[i]"  type="radio" class="radioYesClass"
+              [name]="'condition'+i" [id]="'inputYes'+i" value="yes" />
+            NO <input [(ngModel)]="SpanArray1[i]"  type="radio" class="radioNoClass"
+              [id]="'inputNo'+i" [name]="'condition'+i" value="no" />
+          </div>
 
           <select [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_textOp'" class="selectopClass" [id]="'dropdown'+i">
             <option value="begin with">begin with</option>
@@ -94,10 +100,11 @@
             <option value="contain">contain</option>
             <option value="between">between</option>
           </select>
-          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_textOp'" type="text" (keypress)="omit_special_char($event)" class="textopClass" [id]="'textValue'+i" />
+          <input [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_textOp'" type="text" (keypress)="omit_special_char($event)"
+            class="textopClass" [id]="'textValue'+i" />
 
-          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
-          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="SpanArray2[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
+          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="dateFrom[i]" *ngSwitchCase="'CONTROL_DATETIME'"></kendo-datepicker>
+          <kendo-datepicker [format]="'dd-MMM-yyyy'" [(ngModel)]="dateTo[i]" *ngSwitchCase="'CONTROL_DATETIME'" ></kendo-datepicker>
 
           <kendo-multiselect [data]="MultiSelectdata" [(ngModel)]="SpanArray1[i]" *ngSwitchCase="'CONTROL_TAG'"></kendo-multiselect>
 

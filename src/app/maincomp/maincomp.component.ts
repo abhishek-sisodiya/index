@@ -19,18 +19,18 @@ export class MaincompComponent implements OnInit {
   ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
   LabelName = []; //attr.Label name
   containers = []; //Holding boolean values for mdiv creation
-  //ControlIndex = 0;
   noOfLabels = 0; //Incrementer for LabelName[]
   noOfFields = 0; //Incrementer for FieldType[]
   MultiSelectdata = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan']; //itmes for kendo multiSelect
-  // items = ['a','b','c','d','e'] //for kendo Menu
-  item = {} //For JsonObj
-  ObjectCollection = [] //JsonObj
+  item = {}; //For JsonObj
+  ObjectCollection = []; //JsonObj
   public source: Array<string> = ['textName', 'List', 'operation', 'dateTime', 'bool', 'tag', 'textOp'];
-  DropdownData = []
-  ValueFromInputText
-  json_object_2
-  ControlIndex = 0
+  DropdownData = [];
+  ValueFromInputText;
+  json_object_2;
+  ControlIndex = 0;
+  dateFrom = [];
+  dateTo = [];
 
   constructor() {
     this.DropdownData = this.source.slice();
@@ -39,9 +39,9 @@ export class MaincompComponent implements OnInit {
   ngOnInit() { }
 
 
-/*   public filterChange(filter: any): void {
-    this.DropdownData = this.source.filter((s) => s.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
-  } */
+  /*   public filterChange(filter: any): void {
+      this.DropdownData = this.source.filter((s) => s.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+    } */
 
 
   forDiv(event): void {
@@ -49,9 +49,7 @@ export class MaincompComponent implements OnInit {
     this.ChildDivExpanded[this.ControlIndex] = true
     this.BtnApplyExpanded[this.ControlIndex] = true
     this.containers[this.ControlIndex] = true
-
     this.LabelName[this.ControlIndex] = event.item.text;
-
     /*  for (let i: number = 0; i < this.containers.length; i++) {
        if (event.item.text == this.source[i]) {
          this.FieldType[this.noOfFields++] = this.ForFieldType[i]
@@ -85,11 +83,37 @@ export class MaincompComponent implements OnInit {
 
   doBtnApply(event): void {
 
+
+    if (this.FieldType[event] == 'CONTROL_DATETIME') {
+      if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
+
+        let day = this.dateFrom[event].getDate();
+        let month = this.dateFrom[event].getMonth() + 1;
+        let year = this.dateFrom[event].getFullYear();
+        let dateOut1 = [day, month, year].join('/');
+  
+        this.SpanArray1[event] = dateOut1
+       
+        day = this.dateTo[event].getDate();
+        month = this.dateTo[event].getMonth() + 1;
+        year = this.dateTo[event].getFullYear();
+        let dateOut2 = [day, month, year].join('/');
+  
+        this.SpanArray2[event] = dateOut2
+
+        this.ChildDivExpanded[event] = false
+        this.BtnApplyExpanded[event] = false
+
+      }
+
+    }
+
     if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
         console.log("please fill values");
       }
       else {
+
         this.ChildDivExpanded[event] = false
         this.BtnApplyExpanded[event] = false
       }
@@ -103,6 +127,8 @@ export class MaincompComponent implements OnInit {
         this.BtnApplyExpanded[event] = false
       }
     }
+        
+
 
 
   }
@@ -135,10 +161,12 @@ export class MaincompComponent implements OnInit {
 
   }
 
+
   buttonClear(): any {
     // .fill to empty arrray
 
     this.containers = [];
+    this.ControlIndex = 0;
 
     console.log(this.containers);
 
@@ -156,19 +184,21 @@ export class MaincompComponent implements OnInit {
 
   getValues(): void {
 
+    this.ObjectCollection = []
+
     for (let i: number = 0; i < this.containers.length; i++) {
       this.item = {}
       if (this.BtnApplyExpanded[i] != this.containers[i]) {
         if (this.containers[i] != 'DeletedDiv') {
-          if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty ) {
+          if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty) {
             // ObjectCollection[i] = this.SpanArray1[i]
             this.item["SeqNumber"] = i;
             this.item["LabelName"] = this.LabelName[i];
             this.item["Value1"] = this.SpanArray1[i];
             this.item["Value2"] = this.SpanArray2[i];
-            this.ObjectCollection[i] = this.item
+            this.ObjectCollection[i] = this.item;
             if (this.item["Value2"] == undefined) {
-              delete this.item["Value2"]
+              delete this.item["Value2"];
             }
             console.log("JSON saved for div", i);
 
@@ -177,6 +207,7 @@ export class MaincompComponent implements OnInit {
             console.log("Please select some value for div", i);
 
           }
+          console.log(this.ObjectCollection);
         }
       }
 
@@ -184,7 +215,7 @@ export class MaincompComponent implements OnInit {
         console.log("Please APPLY on div", i);
       }
     }
-    console.log(this.ObjectCollection);
+
 
   }
 
@@ -211,20 +242,17 @@ export class MaincompComponent implements OnInit {
 
   fromJSON(jsonObj): void {
 
-    var Array_SeqNumber = [];
+    let Array_SeqNumber = [];
 
     jsonObj.forEach(index => {
 
-      var LabelName = index.LabelName;
-      var SeqNumber = index.SeqNumber;
-      var Value1 = index.Value1;
-      var Value2 = index.Value2;
-      var Operator = index.Operator;
+      let LabelName = index.LabelName;
+      let SeqNumber = index.SeqNumber;
+      let Value1 = index.Value1;
+      let Value2 = index.Value2;
+      let Operator = index.Operator;
 
-      this.ChildDivExpanded[SeqNumber] = true
-      this.BtnApplyExpanded[SeqNumber] = true
       this.containers[SeqNumber] = true
-
 
       this.LabelName[SeqNumber] = LabelName;
 
@@ -266,7 +294,7 @@ export class MaincompComponent implements OnInit {
 
     });
 
-    var MaxOfControlIndex = Math.max.apply(Math, Array_SeqNumber);
+    let MaxOfControlIndex = Math.max.apply(Math, Array_SeqNumber);
     this.ControlIndex = MaxOfControlIndex + 1;
 
   }
