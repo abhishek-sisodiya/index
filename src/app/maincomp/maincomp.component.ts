@@ -15,8 +15,6 @@ export class MaincompComponent implements OnInit {
   BtnApplyExpanded = [] //boolean values to hide ApplyBtn on BtnApply click
   SpanArray1 = [] //Span1 Values
   SpanArray2 = [] //Span2 Values
-  // FieldType = []; //attr.FieldType name
-  // ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
   LabelName = []; //attr.Label name
   containers = []; //Holding boolean values for mdiv creation
   noOfLabels = 0; //Incrementer for LabelName[]
@@ -56,35 +54,11 @@ export class MaincompComponent implements OnInit {
        }
      } */
 
-    /*  if (event.item.text == 'textName') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[0]
-     }
-     if (event.item.text == 'List') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[1]
-     }
-     if (event.item.text == 'operation') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[2]
-     }
-     if (event.item.text == 'dateTime') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[3]
-     }
-     if (event.item.text == 'bool') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[4]
-     }
-     if (event.item.text == 'tag') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[5]
-     }
-     if (event.item.text == 'textOp') {
-       this.FieldType[this.ControlIndex] = this.ForFieldType[6]
-     } */
-
     this.ControlIndex++
   }
 
   doBtnApply(event): void {
 
-
-    // if (this.FieldType[event] == 'CONTROL_DATETIME') {
     if (this.LabelName[event] == 'dateTime') {
       if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
 
@@ -109,7 +83,6 @@ export class MaincompComponent implements OnInit {
 
     }
 
-    // if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
     if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
         console.log("please fill values");
@@ -209,7 +182,7 @@ export class MaincompComponent implements OnInit {
             console.log("Please select some value for div", i);
 
           }
-          // console.log(this.ObjectCollection);
+
         } else {
           console.log("Please APPLY on div", i);
         }
@@ -271,28 +244,6 @@ export class MaincompComponent implements OnInit {
 
       this.ChildDivExpanded[SeqNumber] = false
       this.BtnApplyExpanded[SeqNumber] = false
-
-      /* if (LabelName == 'textName') {
-        this.FieldType[SeqNumber] = this.ForFieldType[0]
-      }
-      if (LabelName == 'List') {
-        this.FieldType[SeqNumber] = this.ForFieldType[1]
-      }
-      if (LabelName == 'operation') {
-        this.FieldType[SeqNumber] = this.ForFieldType[2]
-      }
-      if (LabelName == 'dateTime') {
-        this.FieldType[SeqNumber] = this.ForFieldType[3]
-      }
-      if (LabelName == 'bool') {
-        this.FieldType[SeqNumber] = this.ForFieldType[4]
-      }
-      if (LabelName == 'tag') {
-        this.FieldType[SeqNumber] = this.ForFieldType[5]
-      }
-      if (LabelName == 'textOp') {
-        this.FieldType[SeqNumber] = this.ForFieldType[6]
-      } */
 
       Array_SeqNumber.push(SeqNumber);
 
