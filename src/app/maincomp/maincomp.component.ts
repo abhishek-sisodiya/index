@@ -78,9 +78,7 @@ export class MaincompComponent implements OnInit {
 
         this.ChildDivExpanded[event] = false
         this.BtnApplyExpanded[event] = false
-
       }
-
     }
 
     if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
@@ -102,17 +100,12 @@ export class MaincompComponent implements OnInit {
         this.BtnApplyExpanded[event] = false
       }
     }
-
-
-
-
   }
 
   doBtnCancel(event): void {
 
     this.containers[event] = 'DeletedDiv'
     // this.containers.filter(Boolean)
-
   }
 
   /*    onKey(event: any) {
@@ -133,7 +126,6 @@ export class MaincompComponent implements OnInit {
 
     this.ChildDivExpanded[event] = true
     this.BtnApplyExpanded[event] = true
-
   }
 
 
@@ -142,10 +134,10 @@ export class MaincompComponent implements OnInit {
 
     this.containers = [];
     this.ControlIndex = 0;
-
+    this.SpanArray1 = [];
+    this.SpanArray2 = [];
     // this.containers.fill(false);
     // this.containers = this.containers.filter(Boolean)
-
   }
 
   /*   trackByFn(index,item){
@@ -162,57 +154,48 @@ export class MaincompComponent implements OnInit {
     for (let i: number = 0; i < this.containers.length; i++) {
       this.item = {}
       if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null) {
-
         if (this.BtnApplyExpanded[i] != this.containers[i]) {
-
-          if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty) {
-            // ObjectCollection[i] = this.SpanArray1[i]
-            this.item["SeqNumber"] = i;
-            this.item["LabelName"] = this.LabelName[i];
-            this.item["Value1"] = this.SpanArray1[i];
-            this.item["Value2"] = this.SpanArray2[i];
-            this.ObjectCollection[i] = this.item;
-            if (this.item["Value2"] == undefined) {
-              delete this.item["Value2"];
+          if (this.containers[i] != 'DeletedDiv') {
+            if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty) {
+              // ObjectCollection[i] = this.SpanArray1[i]
+              this.item["SeqNumber"] = i;
+              this.item["LabelName"] = this.LabelName[i];
+              this.item["Value1"] = this.SpanArray1[i];
+              this.item["Value2"] = this.SpanArray2[i];
+              this.ObjectCollection[i] = this.item;
+              if (this.item["Value2"] == undefined) {
+                delete this.item["Value2"];
+              }
+              console.log("JSON saved for div", i);
             }
-            console.log("JSON saved for div", i);
-
-          }
-          else {
-            console.log("Please select some value for div", i);
-
+            else {
+              console.log("Please select some value for div", i);
+            }
           }
 
-        } else {
+        }
+        else {
           console.log("Please APPLY on div", i);
         }
-
-
-
       }
     }
 
-    var newArray = new Array();
+    let newArray = new Array();
     for (var i = 0; i < this.ObjectCollection.length; i++) {
       if (this.ObjectCollection[i]) {
         newArray.push(this.ObjectCollection[i]);
       }
     }
-
     console.log(newArray);
-
   }
 
 
   createControl_FromDatabase(): void {
 
-    //.mdiv remove
     this.containers = []
-
+    this.ControlIndex = 0;
     this.json_object_2 = JSON.parse(this.ValueFromInputText);
-
     this.fromJSON(this.json_object_2);
-
   }
 
 
@@ -221,7 +204,6 @@ export class MaincompComponent implements OnInit {
     let Array_SeqNumber = [];
 
     jsonObj.forEach(index => {
-
       let LabelName = index.LabelName;
       let SeqNumber = index.SeqNumber;
       let Value1 = index.Value1;
@@ -229,9 +211,7 @@ export class MaincompComponent implements OnInit {
       let Operator = index.Operator;
 
       this.containers[SeqNumber] = true
-
       this.LabelName[SeqNumber] = LabelName;
-
       this.SpanArray1[SeqNumber] = Value1
 
       if (Value2 != undefined) {
@@ -241,17 +221,14 @@ export class MaincompComponent implements OnInit {
         this.SpanArray2[SeqNumber] = Operator
       }
 
-
       this.ChildDivExpanded[SeqNumber] = false
       this.BtnApplyExpanded[SeqNumber] = false
 
       Array_SeqNumber.push(SeqNumber);
-
     });
 
     let MaxOfControlIndex = Math.max.apply(Math, Array_SeqNumber);
     this.ControlIndex = MaxOfControlIndex + 1;
-
   }
 
 }

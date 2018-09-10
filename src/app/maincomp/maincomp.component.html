@@ -38,12 +38,12 @@
 <!-- *ngFor="let i of containers" -->
 <!-- ; trackBy: trackByFn -->
 
- <div *ngFor="let container of containers; let i = index">
+<div *ngFor="let container of containers; let i = index">
     <div *ngIf=" container == true " class="mdiv" [id]="'mdiv'+i">
 
       <!-- contentDivs start -->
-      <!-- <div (click)="contentDiv(i)" attr.fieldType="{{FieldType}}" class="contentDivClass" [id]="'contentDiv'+i"> -->
-        <div (click)="contentDiv(i)" class="contentDivClass" [id]="'contentDiv'+i">
+      <div (click)="contentDiv(i)" class="contentDivClass" [id]="'contentDiv'+i">
+
         <!-- label -->
         <label [id]="'label'+i">{{LabelName[i]}}</label>
 
