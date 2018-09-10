@@ -29,8 +29,8 @@ export class MaincompComponent implements OnInit {
   ValueFromInputText;
   json_object_2;
   ControlIndex = 0;
-  dateFrom = [];
-  dateTo = [];
+  dateFrom = []; //for kendo datepicker
+  dateTo = []; //for kendo datepicker
 
   constructor() {
     this.DropdownData = this.source.slice();
@@ -168,8 +168,6 @@ export class MaincompComponent implements OnInit {
     this.containers = [];
     this.ControlIndex = 0;
 
-    console.log(this.containers);
-
     // this.containers.fill(false);
     // this.containers = this.containers.filter(Boolean)
 
@@ -279,7 +277,7 @@ export class MaincompComponent implements OnInit {
         this.FieldType[SeqNumber] = this.ForFieldType[2]
       }
       if (LabelName == 'dateTime') {
-        this.FieldType[SeqNumber] = this.ForFieldType[3]
+        this.FieldType[SeqNumber] = this.ForFieldType[3]      
       }
       if (LabelName == 'bool') {
         this.FieldType[SeqNumber] = this.ForFieldType[4]
