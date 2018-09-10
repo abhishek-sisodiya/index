@@ -15,13 +15,13 @@ export class MaincompComponent implements OnInit {
   BtnApplyExpanded = [] //boolean values to hide ApplyBtn on BtnApply click
   SpanArray1 = [] //Span1 Values
   SpanArray2 = [] //Span2 Values
-  FieldType = []; //attr.FieldType name
-  ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
+  // FieldType = []; //attr.FieldType name
+  // ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
   LabelName = []; //attr.Label name
   containers = []; //Holding boolean values for mdiv creation
   noOfLabels = 0; //Incrementer for LabelName[]
   noOfFields = 0; //Incrementer for FieldType[]
-  MultiSelectdata = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan']; //itmes for kendo multiSelect
+  MultiSelectdata = ['a', 'b', 'c', 'd', 'e']; //itmes for kendo multiSelect
   item = {}; //For JsonObj
   ObjectCollection = []; //JsonObj
   public source: Array<string> = ['textName', 'List', 'operation', 'dateTime', 'bool', 'tag', 'textOp'];
@@ -56,27 +56,27 @@ export class MaincompComponent implements OnInit {
        }
      } */
 
-    if (event.item.text == 'textName') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[0]
-    }
-    if (event.item.text == 'List') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[1]
-    }
-    if (event.item.text == 'operation') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[2]
-    }
-    if (event.item.text == 'dateTime') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[3]
-    }
-    if (event.item.text == 'bool') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[4]
-    }
-    if (event.item.text == 'tag') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[5]
-    }
-    if (event.item.text == 'textOp') {
-      this.FieldType[this.ControlIndex] = this.ForFieldType[6]
-    }
+    /*  if (event.item.text == 'textName') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+     }
+     if (event.item.text == 'List') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[1]
+     }
+     if (event.item.text == 'operation') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[2]
+     }
+     if (event.item.text == 'dateTime') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+     }
+     if (event.item.text == 'bool') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+     }
+     if (event.item.text == 'tag') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+     }
+     if (event.item.text == 'textOp') {
+       this.FieldType[this.ControlIndex] = this.ForFieldType[6]
+     } */
 
     this.ControlIndex++
   }
@@ -84,21 +84,22 @@ export class MaincompComponent implements OnInit {
   doBtnApply(event): void {
 
 
-    if (this.FieldType[event] == 'CONTROL_DATETIME') {
+    // if (this.FieldType[event] == 'CONTROL_DATETIME') {
+    if (this.LabelName[event] == 'dateTime') {
       if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
 
         let day = this.dateFrom[event].getDate();
         let month = this.dateFrom[event].getMonth() + 1;
         let year = this.dateFrom[event].getFullYear();
         let dateOut1 = [day, month, year].join('/');
-  
+
         this.SpanArray1[event] = dateOut1
-       
+
         day = this.dateTo[event].getDate();
         month = this.dateTo[event].getMonth() + 1;
         year = this.dateTo[event].getFullYear();
         let dateOut2 = [day, month, year].join('/');
-  
+
         this.SpanArray2[event] = dateOut2
 
         this.ChildDivExpanded[event] = false
@@ -108,7 +109,8 @@ export class MaincompComponent implements OnInit {
 
     }
 
-    if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
+    // if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
+    if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
         console.log("please fill values");
       }
@@ -127,7 +129,7 @@ export class MaincompComponent implements OnInit {
         this.BtnApplyExpanded[event] = false
       }
     }
-        
+
 
 
 
@@ -186,8 +188,10 @@ export class MaincompComponent implements OnInit {
 
     for (let i: number = 0; i < this.containers.length; i++) {
       this.item = {}
-      if (this.BtnApplyExpanded[i] != this.containers[i]) {
-        if (this.containers[i] != 'DeletedDiv') {
+      if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null) {
+
+        if (this.BtnApplyExpanded[i] != this.containers[i]) {
+
           if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty) {
             // ObjectCollection[i] = this.SpanArray1[i]
             this.item["SeqNumber"] = i;
@@ -205,15 +209,24 @@ export class MaincompComponent implements OnInit {
             console.log("Please select some value for div", i);
 
           }
-          console.log(this.ObjectCollection);
+          // console.log(this.ObjectCollection);
+        } else {
+          console.log("Please APPLY on div", i);
         }
-      }
 
-      else {
-        console.log("Please APPLY on div", i);
+
+
       }
     }
 
+    var newArray = new Array();
+    for (var i = 0; i < this.ObjectCollection.length; i++) {
+      if (this.ObjectCollection[i]) {
+        newArray.push(this.ObjectCollection[i]);
+      }
+    }
+
+    console.log(newArray);
 
   }
 
@@ -225,15 +238,7 @@ export class MaincompComponent implements OnInit {
 
     this.json_object_2 = JSON.parse(this.ValueFromInputText);
 
-    var newArray = new Array();
-    for (var i = 0; i < this.json_object_2.length; i++) {
-      if (this.json_object_2[i]) {
-        newArray.push(this.json_object_2[i]);
-      }
-    }
-    console.log(newArray);
-
-    this.fromJSON(newArray);
+    this.fromJSON(this.json_object_2);
 
   }
 
@@ -267,7 +272,7 @@ export class MaincompComponent implements OnInit {
       this.ChildDivExpanded[SeqNumber] = false
       this.BtnApplyExpanded[SeqNumber] = false
 
-      if (LabelName == 'textName') {
+      /* if (LabelName == 'textName') {
         this.FieldType[SeqNumber] = this.ForFieldType[0]
       }
       if (LabelName == 'List') {
@@ -277,7 +282,7 @@ export class MaincompComponent implements OnInit {
         this.FieldType[SeqNumber] = this.ForFieldType[2]
       }
       if (LabelName == 'dateTime') {
-        this.FieldType[SeqNumber] = this.ForFieldType[3]      
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
       }
       if (LabelName == 'bool') {
         this.FieldType[SeqNumber] = this.ForFieldType[4]
@@ -287,7 +292,8 @@ export class MaincompComponent implements OnInit {
       }
       if (LabelName == 'textOp') {
         this.FieldType[SeqNumber] = this.ForFieldType[6]
-      }
+      } */
+
       Array_SeqNumber.push(SeqNumber);
 
     });
