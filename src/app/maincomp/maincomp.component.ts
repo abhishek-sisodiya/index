@@ -30,18 +30,15 @@ export class MaincompComponent implements OnInit {
 
   forDiv(event): void {
 
-    this.ChildDivExpanded[this.ControlIndex] = true
-    this.BtnApplyExpanded[this.ControlIndex] = true
-    this.containers[this.ControlIndex] = true
+    this.ChildDivExpanded[this.ControlIndex] = true;
+    this.BtnApplyExpanded[this.ControlIndex] = true;
+    this.containers[this.ControlIndex] = true;
     this.LabelName[this.ControlIndex] = event.item.text;
 
-    this.ControlIndex++
+    this.ControlIndex++;
   }
 
   doBtnApply(event): void {
-
-    console.log(this.BtnApplyExpanded);
-    
 
     if (this.LabelName[event] == 'dateTime') {
       if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
@@ -51,62 +48,60 @@ export class MaincompComponent implements OnInit {
         let year = this.dateFrom[event].getFullYear();
         let dateOut1 = [day, month, year].join('/');
 
-        this.SpanArray1[event] = dateOut1
+        this.SpanArray1[event] = dateOut1;
 
         day = this.dateTo[event].getDate();
         month = this.dateTo[event].getMonth() + 1;
         year = this.dateTo[event].getFullYear();
         let dateOut2 = [day, month, year].join('/');
 
-        this.SpanArray2[event] = dateOut2
+        this.SpanArray2[event] = dateOut2;
 
-        this.ChildDivExpanded[event] = false
-        this.BtnApplyExpanded[event] = false
+        this.ChildDivExpanded[event] = false;
+        this.BtnApplyExpanded[event] = false;
       }
     }
 
     if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
-      if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
+      if (this.SpanArray1[event] == null || this.SpanArray2[event] == null || this.SpanArray1[event] == "" || this.SpanArray2[event] == "") {
         alert("please fill values");
       }
       else {
 
-        this.ChildDivExpanded[event] = false
-        this.BtnApplyExpanded[event] = false
+        this.ChildDivExpanded[event] = false;
+        this.BtnApplyExpanded[event] = false;
       }
     }
     else {
-      if (this.SpanArray1[event] == null) {
-        console.log("please fill values");
+      if (this.SpanArray1[event] == null || this.SpanArray1[event] == "") {
+        alert("please fill values");
       }
       else {
-        this.ChildDivExpanded[event] = false
-        this.BtnApplyExpanded[event] = false
+        this.ChildDivExpanded[event] = false;
+        this.BtnApplyExpanded[event] = false;
       }
     }
   }
 
   doBtnCancel(event): void {
 
-    this.containers[event] = 'DeletedDiv'
+    this.containers[event] = 'DeletedDiv';
     // this.containers.filter(Boolean)
   }
 
-
+  
   omit_special_char(event) {
-    var k;
-    k = event.charCode;  //      (Both can be used)       
+    let k;
+    // k = event.charCode;       //(Both can be used)       
     k = event.keyCode;
     return ((k > 64 && k < 91) || (k > 96 && k < 123));
   }
 
-
+  
   contentDiv(event): void {
 
-    this.ChildDivExpanded[event] = true
-    this.BtnApplyExpanded[event] = true
-
-
+    this.ChildDivExpanded[event] = true;
+    this.BtnApplyExpanded[event] = true;
   }
 
 
@@ -117,6 +112,12 @@ export class MaincompComponent implements OnInit {
     this.ControlIndex = 0;
     this.SpanArray1 = [];
     this.SpanArray2 = [];
+    this.LabelName = [];
+    this.ChildDivExpanded = [];
+    this.BtnApplyExpanded = [];
+    this.dateFrom = [];
+    this.dateTo = [];
+    this.ObjectCollection = [];
     // this.containers.fill(false);
     // this.containers = this.containers.filter(Boolean)
   }
@@ -127,16 +128,11 @@ export class MaincompComponent implements OnInit {
     this.ObjectCollection = [];
     let count = 0;
 
-    console.log(this.BtnApplyExpanded)
-    console.log(this.containers)
-    console.log(this.SpanArray1)
-    console.log(this.SpanArray2)
-
     for (let i: number = 0; i < this.containers.length; i++) {
       if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null || this.BtnApplyExpanded[i] == empty) {
         if (this.BtnApplyExpanded[i] == true) {
 
-          alert("Pleaseeeeeeeee APPLY on div" + i);
+          alert("Please APPLY on div" + i);
           count++;
         }
       }
@@ -191,14 +187,17 @@ export class MaincompComponent implements OnInit {
 
   createControl_FromDatabase(): void {
 
-    this.dateTo = []
+    this.ChildDivExpanded = [];
+    this.LabelName = [];
+    this.dateTo = [];
     this.dateFrom = [];
-    this.ObjectCollection = []
-    this.BtnApplyExpanded = []
-    this.containers = []
+    this.ObjectCollection = [];
+    this.BtnApplyExpanded = [];
+    this.containers = [];
     this.ControlIndex = 0;
     this.SpanArray1 = [];
     this.SpanArray2 = [];
+
     this.json_object_2 = JSON.parse(this.ValueFromInputText);
     this.fromJSON(this.json_object_2);
   }
@@ -209,25 +208,25 @@ export class MaincompComponent implements OnInit {
     let Array_SeqNumber = [];
 
     jsonObj.forEach(index => {
-      let LabelName = index.LabelName;
+      let LocalLabelName = index.LabelName;
       let SeqNumber = index.SeqNumber;
       let Value1 = index.Value1;
       let Value2 = index.Value2;
       let Operator = index.Operator;
 
-      this.containers[SeqNumber] = true
-      this.LabelName[SeqNumber] = LabelName;
+      this.containers[SeqNumber] = true;
+      this.LabelName[SeqNumber] = LocalLabelName;
       this.SpanArray2[SeqNumber] = Value2
 
       if (Value1 != undefined) {
-        this.SpanArray1[SeqNumber] = Value1
+        this.SpanArray1[SeqNumber] = Value1;
       }
       else {
-        this.SpanArray1[SeqNumber] = Operator
+        this.SpanArray1[SeqNumber] = Operator;
       }
 
-      this.ChildDivExpanded[SeqNumber] = false
-      this.BtnApplyExpanded[SeqNumber] = false
+      this.ChildDivExpanded[SeqNumber] = false;
+      this.BtnApplyExpanded[SeqNumber] = false;
 
       Array_SeqNumber.push(SeqNumber);
     });
