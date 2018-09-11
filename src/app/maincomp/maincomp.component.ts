@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { localeInfo } from '@telerik/kendo-intl';
 import { empty } from 'rxjs';
-import { sequence } from '@angular/animations';
 
 @Component({
   selector: 'app-maincomp',
@@ -17,30 +15,18 @@ export class MaincompComponent implements OnInit {
   SpanArray2 = [] //Span2 Values
   LabelName = []; //attr.Label name
   containers = []; //Holding boolean values for mdiv creation
-  noOfLabels = 0; //Incrementer for LabelName[]
-  noOfFields = 0; //Incrementer for FieldType[]
   MultiSelectdata = ['a', 'b', 'c', 'd', 'e']; //itmes for kendo multiSelect
   item = {}; //For JsonObj
   ObjectCollection = []; //JsonObj
-  public source: Array<string> = ['textName', 'List', 'operation', 'dateTime', 'bool', 'tag', 'textOp'];
-  DropdownData = [];
-  ValueFromInputText;
-  json_object_2;
+  ValueFromInputText; // json input type
+  json_object_2; //createControl_FromDatabase jsonObj
   ControlIndex = 0;
   dateFrom = []; //for kendo datepicker
   dateTo = []; //for kendo datepicker
 
-  constructor() {
-    this.DropdownData = this.source.slice();
-  }
+  constructor() { }
 
   ngOnInit() { }
-
-
-  /*   public filterChange(filter: any): void {
-      this.DropdownData = this.source.filter((s) => s.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
-    } */
-
 
   forDiv(event): void {
 
@@ -48,16 +34,14 @@ export class MaincompComponent implements OnInit {
     this.BtnApplyExpanded[this.ControlIndex] = true
     this.containers[this.ControlIndex] = true
     this.LabelName[this.ControlIndex] = event.item.text;
-    /*  for (let i: number = 0; i < this.containers.length; i++) {
-       if (event.item.text == this.source[i]) {
-         this.FieldType[this.noOfFields++] = this.ForFieldType[i]
-       }
-     } */
 
     this.ControlIndex++
   }
 
   doBtnApply(event): void {
+
+    console.log(this.BtnApplyExpanded);
+    
 
     if (this.LabelName[event] == 'dateTime') {
       if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
@@ -83,7 +67,7 @@ export class MaincompComponent implements OnInit {
 
     if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null) {
-        console.log("please fill values");
+        alert("please fill values");
       }
       else {
 
@@ -108,11 +92,6 @@ export class MaincompComponent implements OnInit {
     // this.containers.filter(Boolean)
   }
 
-  /*    onKey(event: any) {
-  
-      this.InputValues = event.target.value ;
-      
-    } */
 
   omit_special_char(event) {
     var k;
@@ -126,6 +105,8 @@ export class MaincompComponent implements OnInit {
 
     this.ChildDivExpanded[event] = true
     this.BtnApplyExpanded[event] = true
+
+
   }
 
 
@@ -140,43 +121,61 @@ export class MaincompComponent implements OnInit {
     // this.containers = this.containers.filter(Boolean)
   }
 
-  /*   trackByFn(index,item){
-  
-      return index.MdivExpanded; // myCustomIndex should be unique
-  
-    } */
-
 
   getValues(): void {
 
-    this.ObjectCollection = []
+    this.ObjectCollection = [];
+    let count = 0;
+
+    console.log(this.BtnApplyExpanded)
+    console.log(this.containers)
+    console.log(this.SpanArray1)
+    console.log(this.SpanArray2)
 
     for (let i: number = 0; i < this.containers.length; i++) {
-      this.item = {}
-      if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null) {
-        if (this.BtnApplyExpanded[i] != this.containers[i]) {
-          if (this.containers[i] != 'DeletedDiv') {
-            if (this.SpanArray1[i] != empty && this.SpanArray2[i] != empty) {
-              // ObjectCollection[i] = this.SpanArray1[i]
+      if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null || this.BtnApplyExpanded[i] == empty) {
+        if (this.BtnApplyExpanded[i] == true) {
+
+          alert("Pleaseeeeeeeee APPLY on div" + i);
+          count++;
+        }
+      }
+    }
+
+    if (count == 0) {
+      for (let i: number = 0; i < this.containers.length; i++) {
+        this.item = {}
+        // if (this.SpanArray1[i] != null || this.SpanArray2[i] != null && this.containers[i] != 'DeletedDiv' && this.containers[i] != null || this.BtnApplyExpanded[i] == true  && this.BtnApplyExpanded[i] == empty) {
+        if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null) {
+          if (this.BtnApplyExpanded[i] != this.containers[i]) {
+            if (this.containers[i] != 'DeletedDiv') {
+
               this.item["SeqNumber"] = i;
               this.item["LabelName"] = this.LabelName[i];
-              this.item["Value1"] = this.SpanArray1[i];
+              if (this.LabelName[i] == "operation" || this.LabelName[i] == "textOp") {
+                this.item["Operator"] = this.SpanArray1[i];
+              }
+              else {
+                this.item["Value1"] = this.SpanArray1[i];
+              }
               this.item["Value2"] = this.SpanArray2[i];
               this.ObjectCollection[i] = this.item;
               if (this.item["Value2"] == undefined) {
                 delete this.item["Value2"];
               }
-              console.log("JSON saved for div", i);
+              alert("JSON saved for div" + i);
             }
             else {
-              console.log("Please select some value for div", i);
+              alert("Please select some value for div" + i);
             }
           }
 
         }
-        else {
-          console.log("Please APPLY on div", i);
-        }
+
+        // } else {
+        //   alert("Please APPLY on div" + i);
+        //   break;
+        // }
       }
     }
 
@@ -192,8 +191,14 @@ export class MaincompComponent implements OnInit {
 
   createControl_FromDatabase(): void {
 
+    this.dateTo = []
+    this.dateFrom = [];
+    this.ObjectCollection = []
+    this.BtnApplyExpanded = []
     this.containers = []
     this.ControlIndex = 0;
+    this.SpanArray1 = [];
+    this.SpanArray2 = [];
     this.json_object_2 = JSON.parse(this.ValueFromInputText);
     this.fromJSON(this.json_object_2);
   }
@@ -212,13 +217,13 @@ export class MaincompComponent implements OnInit {
 
       this.containers[SeqNumber] = true
       this.LabelName[SeqNumber] = LabelName;
-      this.SpanArray1[SeqNumber] = Value1
+      this.SpanArray2[SeqNumber] = Value2
 
-      if (Value2 != undefined) {
-        this.SpanArray2[SeqNumber] = Value2
+      if (Value1 != undefined) {
+        this.SpanArray1[SeqNumber] = Value1
       }
       else {
-        this.SpanArray2[SeqNumber] = Operator
+        this.SpanArray1[SeqNumber] = Operator
       }
 
       this.ChildDivExpanded[SeqNumber] = false
@@ -229,6 +234,7 @@ export class MaincompComponent implements OnInit {
 
     let MaxOfControlIndex = Math.max.apply(Math, Array_SeqNumber);
     this.ControlIndex = MaxOfControlIndex + 1;
+
   }
 
 }

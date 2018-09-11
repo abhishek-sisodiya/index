@@ -1,7 +1,3 @@
-<!-- <div>
-<kendo-dropdownlist [data]="DropdownData" [filterable]="true" (selectionChange)="forDiv($event)" (filterChange)="filterChange($event)">
-</kendo-dropdownlist>
-</div> -->
 
 <div>
   <kendo-menu [vertical]="true" (select)="forDiv($event)">
@@ -28,15 +24,6 @@
   <input type="button" id="createControl_FromDatabase" value="createControl_FromDatabase" (click)="createControl_FromDatabase()">
   <input [(ngModel)]="ValueFromInputText" type="text" id="inputControl" />
 </div>
-
-<!--       <kendo-menu [items]="items">
-      </kendo-menu> -->
-
-<!-- <ng-template *ngIf="x === ; then first; foo === 2; then second else third" ></ng-template> -->
-<!-- mDivs start -->
-<!-- <ng-container *ngIf="showMdiv"> -->
-<!-- *ngFor="let i of containers" -->
-<!-- ; trackBy: trackByFn -->
 
 <div *ngFor="let container of containers; let i = index">
     <div *ngIf=" container == true " class="mdiv" [id]="'mdiv'+i">
