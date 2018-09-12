@@ -26,13 +26,14 @@ export class MaincompComponent implements OnInit {
   dateFrom = []; //for kendo datepicker
   dateTo = []; //for kendo datepicker
   FieldType = []; //attr.FieldType name
+  // ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
   ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
 
   constructor() { }
 
   ngOnInit() { }
 
-  forDiv(event): any {
+   forDiv(event): any {
 
     if (event.item.text == 'Menu' || event.item.text == 'Saved Filters' || event.item.text == 'Activity') {
       return false;
@@ -43,31 +44,44 @@ export class MaincompComponent implements OnInit {
       this.containers[this.ControlIndex] = true;
       this.LabelName[this.ControlIndex] = event.item.text;
 
-      if (event.item.text == 'textName') {
+
+      if (event.item.text == 'List Name') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (event.item.text == 'List') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[1]
+      if (event.item.text == 'List Number') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (event.item.text == 'operation') {
+      if (event.item.text == 'Records') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[2]
       }
+      if (event.item.text == 'Seed Lists') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+      }
+      if (event.item.text == 'Tag') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+      if (event.item.text == 'Status') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+      if (event.item.text == 'Source') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+
+
       if (event.item.text == 'dateTime') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
-      if (event.item.text == 'bool') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[4]
-      }
-      if (event.item.text == 'tag') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
-      }
       if (event.item.text == 'textOp') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[6]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+      }
+      if (event.item.text == 'List') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
 
       this.ControlIndex++;
     }
-  }
+  } 
+  
 
   doBtnApply(event): void {
 
@@ -95,7 +109,7 @@ export class MaincompComponent implements OnInit {
 
     if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null || this.SpanArray1[event] == "" || this.SpanArray2[event] == "") {
-        alert("please fill values");
+        alert("Please fill values for " + this.LabelName[event]);
       }
       else {
 
@@ -105,7 +119,7 @@ export class MaincompComponent implements OnInit {
     }
     else {
       if (this.SpanArray1[event] == null || this.SpanArray1[event] == "") {
-        alert("please fill values");
+        alert("Please fill values for " + this.LabelName[event]);
       }
       else {
         this.ChildDivExpanded[event] = false;
@@ -163,7 +177,7 @@ export class MaincompComponent implements OnInit {
       if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null || this.BtnApplyExpanded[i] == empty) {
         if (this.BtnApplyExpanded[i] == true) {
 
-          alert("Please APPLY on div" + i);
+          alert("Please APPLY on " + this.LabelName[i]);
           count++;
         }
       }
@@ -179,7 +193,8 @@ export class MaincompComponent implements OnInit {
 
               this.item["SeqNumber"] = i;
               this.item["LabelName"] = this.LabelName[i];
-              if (this.LabelName[i] == "operation" || this.LabelName[i] == "textOp") {
+              this.item["FieldType"] = this.FieldType[i];
+              if (this.FieldType[i] == "CONTROL_OPERATOR" || this.FieldType[i] == "CONTROL_textOp") {
                 this.item["Operator"] = this.SpanArray1[i];
               }
               else {
@@ -189,11 +204,11 @@ export class MaincompComponent implements OnInit {
               this.ObjectCollection[i] = this.item;
               if (this.item["Value2"] == undefined) {
                 delete this.item["Value2"];
-              }
-              alert("JSON saved for div" + i);
+              }              
+              alert("JSON saved for " + this.LabelName[i]);
             }
             else {
-              alert("Please select some value for div" + i);
+              alert("Please select some value for " + this.LabelName[i]);
             }
           }
 
@@ -213,10 +228,29 @@ export class MaincompComponent implements OnInit {
       }
     }
     console.log(newArray);
+
+
+    // loop
+    
+    
+    let x = items[0].items[0].items;
+    console.log(x);
+    for (let i: number = 0; i < newArray.length; i++) {
+      
+      let y = {};
+      // y['text'] = newArray[i].LabelName
+      y['text'] = newArray[i]
+      x.push(y)
+      
+    }
+    console.log(x);
+
+
+
   }
 
 
-  createControl_FromDatabase(): void {
+  createControl_FromDatabase(event): void {
 
     this.ChildDivExpanded = [];
     this.LabelName = [];
@@ -230,7 +264,20 @@ export class MaincompComponent implements OnInit {
     this.SpanArray2 = [];
 
     this.json_object_2 = JSON.parse(this.ValueFromInputText);
+    console.log(this.ValueFromInputText);
+    
     this.fromJSON(this.json_object_2);
+
+
+/*     let x = items[0].items[0].items[0].text
+    console.log(x);
+
+    this.json_object_2 = JSON.parse(x);
+    // this.json_object_2 = "["+JSON.stringify(x)+"]";
+    console.log(this.json_object_2);
+    
+    this.fromJSON(this.json_object_2); */
+    
   }
 
 
@@ -260,26 +307,37 @@ export class MaincompComponent implements OnInit {
       this.BtnApplyExpanded[SeqNumber] = false;
 
 
-      if (LocalLabelName == 'textName') {
-        this.FieldType[SeqNumber] = this.ForFieldType[0]
+      if (LocalLabelName == 'List Name') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (LocalLabelName == 'List') {
-        this.FieldType[SeqNumber] = this.ForFieldType[1]
+      if (LocalLabelName == 'List Number') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (LocalLabelName == 'operation') {
-        this.FieldType[SeqNumber] = this.ForFieldType[2]
+      if (LocalLabelName == 'Records') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[2]
       }
+      if (LocalLabelName == 'Seed Lists') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+      }
+      if (LocalLabelName == 'Tag') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+      if (LocalLabelName == 'Status') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+      if (LocalLabelName == 'Source') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+
+
       if (LocalLabelName == 'dateTime') {
-        this.FieldType[SeqNumber] = this.ForFieldType[3]
-      }
-      if (LocalLabelName == 'bool') {
-        this.FieldType[SeqNumber] = this.ForFieldType[4]
-      }
-      if (LocalLabelName == 'tag') {
-        this.FieldType[SeqNumber] = this.ForFieldType[5]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
       if (LocalLabelName == 'textOp') {
-        this.FieldType[SeqNumber] = this.ForFieldType[6]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+      }
+      if (LocalLabelName == 'List') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
 
       Array_SeqNumber.push(SeqNumber);

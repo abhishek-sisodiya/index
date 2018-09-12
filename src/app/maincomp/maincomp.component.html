@@ -2,6 +2,9 @@
 <kendo-menu [items]="items"  (select)="forDiv($event)">
 </kendo-menu>
 
+<kendo-menu [items]="items"  (select)="createControl_FromDatabase()">
+</kendo-menu>
+
 <div>
   <button kendoButton (click)="getValues()">GET VALUES</button> &nbsp;
   <button kendoButton (click)="buttonClear()">CLEAR ALL</button> &nbsp;
