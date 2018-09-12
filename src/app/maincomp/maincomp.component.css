@@ -1,7 +1,249 @@
-
-
-  .mdiv{
-      background-color: green;
-      width: 500px;
-      height: 100px;    
+html {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
   }
+  
+  #filter {
+    display: inline;
+  }
+  
+  .mdiv{
+    height: 41px;
+    display: -webkit-inline-box;
+    background-color: #e3eaed;
+    padding: 2px;
+    margin:1px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  label {
+    font-weight: 400;
+    padding: 5px;
+  }
+  
+  .childdivclass input[type=radio] {
+    margin: 3px 8px 0;
+  }
+  
+  .k-picker-wrap {
+    line-height: 2.07142857em;
+    padding: 0px;
+  }
+  
+  .textopClass {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 4px;
+    background-color: #fff;
+  }
+  
+  .contentDivClass {
+    display: -webkit-inline-box;
+  }
+    .contentDivClass span {
+     
+      line-height: 2.5;
+    }
+  .selectopClass {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 0px 0px;
+    height: 30px;
+  }
+  
+  .selectClass {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0px 0px;
+    background-color: #fff;
+    font-size: 15px;
+  }
+  
+  .textValueClass {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 4px;
+  }
+  .childdivclass {
+    margin: 0px 5px;
+    display: inline-flex;
+  }
+  
+  .btnCancelClass {
+    border: 0;
+    margin: 5px;
+    background-color: transparent;
+  }
+  .btnApplyClass {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 4px 12px;
+    background-color: transparent;
+    margin: 3px;
+    margin-left: 3px;
+    margin-left: 12px;
+  }
+  
+  .childdivclass2 {
+    padding: 5px;
+  }
+  
+  #search {
+    float: right;
+    margin-top: 9px;
+    
+  }
+  
+  .search {
+    padding: 5px 0;
+    width: 229px;
+    height: 30px;
+    position: relative;
+    left: -7px;
+    float: left;
+    line-height: 22px;
+    top: 5px;
+  }
+  
+  .filter {
+    padding: 5px 0;
+    width: 230px;
+    height: 30px;
+    position: relative;
+    left: 10px;
+    float: left;
+    line-height: 22px;
+    top: 10px;
+  }
+  
+  /*.search input {
+    position: absolute;
+    width: 0px;
+    float: Left;
+    margin-left: 210px;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+    height: 30px;
+    line-height: 18px;
+    padding: 0 2px 0 2px;
+    border-radius: 1px;
+  }
+  
+    .search:hover input, .search input:focus {
+      width: 200px;
+      margin-left: 0px;
+    }*/
+  
+  .btn1 {
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    border-radius: 1px;
+  }
+  
+  .btn-search {
+    border: 0;
+    background-color: #f5f5f5;
+  }
+  
+  .well {
+    margin-bottom: 0px !important;
+  }
+  
+  #menu {
+    border: 1px solid #ccc;
+    margin-top: 14px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  .k-menu .k-item > .k-link, .k-menu-scroll-wrapper .k-item > .k-link, .k-popups-wrapper .k-item > .k-link {
+    display: block;
+    padding: 7px !important;
+    line-height: 1.34em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .demo-section label {
+    margin: 2px 0 5px 0;
+    display: inline;
+  }
+
+
+  .k-menu li {
+    content: '';
+    display: inline !important;
+    color: #4b4b4b !important;
+    background-color: transparent !important;
+  }
+  
+  .right-nav {
+    margin-top: 10px;
+    margin-right: 0px;
+  }
+  #search input[type="text"] {
+    width: 130px !important;
+    box-sizing: border-box !important;
+    font-size: 14px;
+    background-color: transparent;
+    padding: 5px 13px 6px 32px;
+    transition: width 0.4s ease-in-out 0s !important;
+  }
+  #search input[type=text]:focus {
+    width: 100% !important;
+  }
+  .inner-addon {
+    position: relative;
+    margin-top: 7px;
+  }
+  
+    /* style glyph */
+    .inner-addon .glyphicon {
+      position: absolute;
+      padding: 14px;
+      pointer-events: none;
+    }
+  
+  /* align glyph */
+  .left-addon .glyphicon {
+    left: 0px;
+  }
+  
+  .right-addon .glyphicon {
+    right: 0px;
+  }
+  
+  /* add padding  */
+  .left-addon input {
+    padding-left: 30px;
+  }
+  .k-multiselect {
+    display: block;
+    width: auto;
+    height: 25px !important;
+    overflow-y: hidden !important;
+    border-radius: 8px;
+  }
+  .k-floatwrap::after, .k-grid-toolbar::after, .k-slider-items::after {
+    height: 25px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+  }
+  .k-multiselect-wrap li {
+    border-radius: 1.071em;
+    margin: 0px 0 3px 3px !important;
+  }
+  input[type="text"] {
+   
+    font-size: 14px !important;
+    
+  }
+

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
+import { items } from './items';
 
 @Component({
   selector: 'app-maincomp',
@@ -9,6 +10,7 @@ import { empty } from 'rxjs';
 
 export class MaincompComponent implements OnInit {
 
+  public items: any[] = items;
   ChildDivExpanded = [] //boolean values to hide ChildDiv on BtnApply click
   BtnApplyExpanded = [] //boolean values to hide ApplyBtn on BtnApply click
   SpanArray1 = [] //Span1 Values
@@ -23,24 +25,53 @@ export class MaincompComponent implements OnInit {
   ControlIndex = 0;
   dateFrom = []; //for kendo datepicker
   dateTo = []; //for kendo datepicker
+  FieldType = []; //attr.FieldType name
+  ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
 
   constructor() { }
 
   ngOnInit() { }
 
-  forDiv(event): void {
+  forDiv(event): any {
 
-    this.ChildDivExpanded[this.ControlIndex] = true;
-    this.BtnApplyExpanded[this.ControlIndex] = true;
-    this.containers[this.ControlIndex] = true;
-    this.LabelName[this.ControlIndex] = event.item.text;
+    if (event.item.text == 'Menu' || event.item.text == 'Saved Filters' || event.item.text == 'Activity') {
+      return false;
+    } else {
 
-    this.ControlIndex++;
+      this.ChildDivExpanded[this.ControlIndex] = true;
+      this.BtnApplyExpanded[this.ControlIndex] = true;
+      this.containers[this.ControlIndex] = true;
+      this.LabelName[this.ControlIndex] = event.item.text;
+
+      if (event.item.text == 'textName') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+      }
+      if (event.item.text == 'List') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[1]
+      }
+      if (event.item.text == 'operation') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[2]
+      }
+      if (event.item.text == 'dateTime') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+      }
+      if (event.item.text == 'bool') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+      }
+      if (event.item.text == 'tag') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      }
+      if (event.item.text == 'textOp') {
+        this.FieldType[this.ControlIndex] = this.ForFieldType[6]
+      }
+
+      this.ControlIndex++;
+    }
   }
 
   doBtnApply(event): void {
 
-    if (this.LabelName[event] == 'dateTime') {
+    if (this.FieldType[event] == 'CONTROL_DATETIME') {
       if (this.dateFrom[event] != undefined && this.dateTo[event] != undefined) {
 
         let day = this.dateFrom[event].getDate();
@@ -62,7 +93,7 @@ export class MaincompComponent implements OnInit {
       }
     }
 
-    if (this.LabelName[event] == 'operation' || this.LabelName[event] == 'dateTime' || this.LabelName[event] == 'textOp') {
+    if (this.FieldType[event] == 'CONTROL_OPERATOR' || this.FieldType[event] == 'CONTROL_DATETIME' || this.FieldType[event] == 'CONTROL_textOp') {
       if (this.SpanArray1[event] == null || this.SpanArray2[event] == null || this.SpanArray1[event] == "" || this.SpanArray2[event] == "") {
         alert("please fill values");
       }
@@ -89,7 +120,7 @@ export class MaincompComponent implements OnInit {
     // this.containers.filter(Boolean)
   }
 
-  
+
   omit_special_char(event) {
     let k;
     // k = event.charCode;       //(Both can be used)       
@@ -97,7 +128,7 @@ export class MaincompComponent implements OnInit {
     return ((k > 64 && k < 91) || (k > 96 && k < 123));
   }
 
-  
+
   contentDiv(event): void {
 
     this.ChildDivExpanded[event] = true;
@@ -227,6 +258,29 @@ export class MaincompComponent implements OnInit {
 
       this.ChildDivExpanded[SeqNumber] = false;
       this.BtnApplyExpanded[SeqNumber] = false;
+
+
+      if (LocalLabelName == 'textName') {
+        this.FieldType[SeqNumber] = this.ForFieldType[0]
+      }
+      if (LocalLabelName == 'List') {
+        this.FieldType[SeqNumber] = this.ForFieldType[1]
+      }
+      if (LocalLabelName == 'operation') {
+        this.FieldType[SeqNumber] = this.ForFieldType[2]
+      }
+      if (LocalLabelName == 'dateTime') {
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
+      }
+      if (LocalLabelName == 'bool') {
+        this.FieldType[SeqNumber] = this.ForFieldType[4]
+      }
+      if (LocalLabelName == 'tag') {
+        this.FieldType[SeqNumber] = this.ForFieldType[5]
+      }
+      if (LocalLabelName == 'textOp') {
+        this.FieldType[SeqNumber] = this.ForFieldType[6]
+      }
 
       Array_SeqNumber.push(SeqNumber);
     });
