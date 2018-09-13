@@ -33,7 +33,7 @@ export class MaincompComponent implements OnInit {
 
   ngOnInit() { }
 
-   forDiv(event): any {
+  forDiv(event): any {
 
     if (event.item.text == 'Menu' || event.item.text == 'Saved Filters' || event.item.text == 'Activity') {
       return false;
@@ -48,29 +48,29 @@ export class MaincompComponent implements OnInit {
       if (event.item.text == 'List Name') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (event.item.text == 'List Number') {
+      else if (event.item.text == 'List Number') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
-      if (event.item.text == 'Records') {
+      else if (event.item.text == 'Records') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[2]
       }
-      if (event.item.text == 'Seed Lists') {
+      else if (event.item.text == 'Seed Lists') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[4]
       }
-      if (event.item.text == 'Tag') {
+      else if (event.item.text == 'Tag') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[5]
       }
-      if (event.item.text == 'Status') {
+      else if (event.item.text == 'Status') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[5]
       }
-      if (event.item.text == 'Source') {
+      else if (event.item.text == 'Source') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[5]
       }
-
-
-      if (event.item.text == 'dateTime') {
+      else {
         this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
+
+
       if (event.item.text == 'textOp') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[3]
       }
@@ -80,8 +80,8 @@ export class MaincompComponent implements OnInit {
 
       this.ControlIndex++;
     }
-  } 
-  
+  }
+
 
   doBtnApply(event): void {
 
@@ -204,7 +204,7 @@ export class MaincompComponent implements OnInit {
               this.ObjectCollection[i] = this.item;
               if (this.item["Value2"] == undefined) {
                 delete this.item["Value2"];
-              }              
+              }
               alert("JSON saved for " + this.LabelName[i]);
             }
             else {
@@ -227,23 +227,65 @@ export class MaincompComponent implements OnInit {
         newArray.push(this.ObjectCollection[i]);
       }
     }
+    
+    
     console.log(newArray);
 
 
-    // loop
-    
-    
     let x = items[0].items[0].items;
+    let y = [];
+    y['text'] = newArray
+    x.push(y)
+
+
+    // loop
+
+
+    /*  let x = items[0].items[0].items;
+     // console.log(x);
+     
+     for (let i: number = 0; i < newArray.length; i++) {
+       
+       let y = {};
+       // y['text'] = newArray[i].LabelName
+       y['text'] = newArray[i]
+       x.push(y)      
+     } */
+
+  
+
+
+    /* let x = items[0].items[0].items;
     console.log(x);
+    let z = [];
+    z['text'] = 'New Value';
+    x.push(z)
+console.log(z[0]);
+
+    let b = []
+ 
+z[0].push(b)    
+
+    b.push(items[0].items[0].items[0].text);
+    console.log(b);
+
+    let nowNew = ['a']
+    b[0].push(nowNew)
+    console.log(b);
+
+
     for (let i: number = 0; i < newArray.length; i++) {
-      
-      let y = {};
+
       // y['text'] = newArray[i].LabelName
-      y['text'] = newArray[i]
-      x.push(y)
-      
+      nowNew[i] = newArray[i]
+
     }
-    console.log(x);
+    console.log(nowNew);
+
+    console.log(z);
+
+    console.log(x); */
+
 
 
 
@@ -251,6 +293,8 @@ export class MaincompComponent implements OnInit {
 
 
   createControl_FromDatabase(event): void {
+
+    this.json_object_2 = []
 
     this.ChildDivExpanded = [];
     this.LabelName = [];
@@ -263,21 +307,101 @@ export class MaincompComponent implements OnInit {
     this.SpanArray1 = [];
     this.SpanArray2 = [];
 
-    this.json_object_2 = JSON.parse(this.ValueFromInputText);
-    console.log(this.ValueFromInputText);
-    
-    this.fromJSON(this.json_object_2);
+    //Main From Input Text Box
+
+    /*     this.json_object_2 = JSON.parse(this.ValueFromInputText);
+        console.log(this.ValueFromInputText);
+        
+        this.fromJSON(this.json_object_2); */
 
 
-/*     let x = items[0].items[0].items[0].text
-    console.log(x);
+        //MAIN From Saved Filter
+        this.fromJSON(event.item.text);
 
-    this.json_object_2 = JSON.parse(x);
-    // this.json_object_2 = "["+JSON.stringify(x)+"]";
-    console.log(this.json_object_2);
+
+    /*  let x
+     let y
+ 
+ 
+     for (let i: number = 0; i < items[0].items[0].items.length; i++) {
+       x = items[0].items[0].items[i].text
+       this.json_object_2 = "[" + JSON.stringify(x) + "]";
+       y = JSON.parse(this.json_object_2);
+       this.fromJSON(y);
+     } */
+
+    // this.json_object_2 = JSON.parse(x);
+    // this.json_object_2 = "["+JSON.parse(x)+"]"
+
+
+
+    // console.log(event.item.text[i].LabelName);
+
     
-    this.fromJSON(this.json_object_2); */
-    
+//MAIN
+    /* let x
+    let y
+
+    for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+      x = items[0].items[0].items[0].text[i]
+      this.json_object_2 = "[" + JSON.stringify(x) + "]";
+      y = JSON.parse(this.json_object_2);
+      this.fromJSON(y);
+    } */
+
+
+/* y = event.item.text
+    console.log(y)
+    for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+      x = items[0].items[0].items[0].text[i]
+      console.log(x);
+    } */
+
+
+  /*   for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+      x = items[0].items[0].items[0].text[i]
+      this.json_object_2 = "[" + JSON.stringify(x) + "]";
+      y = JSON.parse(this.json_object_2);
+     console.log(x);
+     
+      console.log(y); 
+      
+      
+    }*/
+
+
+
+
+    // console.log(event);
+
+
+
+    // console.log(items[0].items[0].items)
+
+    // console.log(event.item.text[i].LabelName);
+
+    /* this.json_object_2 = []
+    let x
+    let y
+
+    for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+      
+      let labelname = event.item.text[i].LabelName
+      console.log(labelname);
+      
+      if(event.item.text[i].LabelName == items[0].items[0].items[0].text[i])
+      {
+      x = items[0].items[0].items[i].text[i]
+      this.json_object_2 = "[" + JSON.stringify(x) + "]";
+      y = JSON.parse(this.json_object_2);
+      this.fromJSON(y);
+      }
+ 
+    }
+
+*/
+
+
   }
 
 
@@ -308,36 +432,36 @@ export class MaincompComponent implements OnInit {
 
 
       if (LocalLabelName == 'List Name') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+        this.FieldType[SeqNumber] = this.ForFieldType[0]
       }
-      if (LocalLabelName == 'List Number') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+      else if (LocalLabelName == 'List Number') {
+        this.FieldType[SeqNumber] = this.ForFieldType[0]
       }
-      if (LocalLabelName == 'Records') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[2]
+      else if (LocalLabelName == 'Records') {
+        this.FieldType[SeqNumber] = this.ForFieldType[2]
       }
-      if (LocalLabelName == 'Seed Lists') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[4]
+      else if (LocalLabelName == 'Seed Lists') {
+        this.FieldType[SeqNumber] = this.ForFieldType[4]
       }
-      if (LocalLabelName == 'Tag') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      else if (LocalLabelName == 'Tag') {
+        this.FieldType[SeqNumber] = this.ForFieldType[5]
       }
-      if (LocalLabelName == 'Status') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      else if (LocalLabelName == 'Status') {
+        this.FieldType[SeqNumber] = this.ForFieldType[5]
       }
-      if (LocalLabelName == 'Source') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[5]
+      else if (LocalLabelName == 'Source') {
+        this.FieldType[SeqNumber] = this.ForFieldType[5]
+      }
+      else {
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
       }
 
 
-      if (LocalLabelName == 'dateTime') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
-      }
       if (LocalLabelName == 'textOp') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
       }
       if (LocalLabelName == 'List') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+        this.FieldType[SeqNumber] = this.ForFieldType[3]
       }
 
       Array_SeqNumber.push(SeqNumber);
