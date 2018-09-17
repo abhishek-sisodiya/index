@@ -26,7 +26,6 @@ export class MaincompComponent implements OnInit {
   dateFrom = []; //for kendo datepicker
   dateTo = []; //for kendo datepicker
   FieldType = []; //attr.FieldType name
-  // ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
   ForFieldType = ['CONTROL_TEXT', 'CONTROL_DROPDOWN', 'CONTROL_OPERATOR', 'CONTROL_DATETIME', 'CONTROL_BOOLEAN', 'CONTROL_TAG', 'CONTROL_textOp']
 
   constructor() { }
@@ -49,7 +48,7 @@ export class MaincompComponent implements OnInit {
         this.FieldType[this.ControlIndex] = this.ForFieldType[0]
       }
       else if (event.item.text == 'List Number') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[0]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[1]
       }
       else if (event.item.text == 'Records') {
         this.FieldType[this.ControlIndex] = this.ForFieldType[2]
@@ -72,10 +71,10 @@ export class MaincompComponent implements OnInit {
 
 
       if (event.item.text == 'textOp') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[6]
       }
       if (event.item.text == 'List') {
-        this.FieldType[this.ControlIndex] = this.ForFieldType[3]
+        this.FieldType[this.ControlIndex] = this.ForFieldType[1]
       }
 
       this.ControlIndex++;
@@ -168,10 +167,17 @@ export class MaincompComponent implements OnInit {
   }
 
 
-  getValues(): void {
+  getValues(): any {
 
     this.ObjectCollection = [];
     let count = 0;
+
+    console.log(this.containers);
+    
+    if (this.containers.length == 0) {
+      alert("Nothing to Save")
+      return false;
+    }
 
     for (let i: number = 0; i < this.containers.length; i++) {
       if (this.containers[i] != 'DeletedDiv' && this.containers[i] != null || this.BtnApplyExpanded[i] == empty) {
@@ -227,8 +233,8 @@ export class MaincompComponent implements OnInit {
         newArray.push(this.ObjectCollection[i]);
       }
     }
-    
-    
+
+
     console.log(newArray);
 
 
@@ -252,7 +258,7 @@ export class MaincompComponent implements OnInit {
        x.push(y)      
      } */
 
-  
+
 
 
     /* let x = items[0].items[0].items;
@@ -315,8 +321,8 @@ z[0].push(b)
         this.fromJSON(this.json_object_2); */
 
 
-        //MAIN From Saved Filter
-        this.fromJSON(event.item.text);
+    //MAIN From Saved Filter
+    this.fromJSON(event.item.text);
 
 
     /*  let x
@@ -337,8 +343,8 @@ z[0].push(b)
 
     // console.log(event.item.text[i].LabelName);
 
-    
-//MAIN
+
+    //MAIN
     /* let x
     let y
 
@@ -350,24 +356,24 @@ z[0].push(b)
     } */
 
 
-/* y = event.item.text
-    console.log(y)
-    for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
-      x = items[0].items[0].items[0].text[i]
-      console.log(x);
-    } */
+    /* y = event.item.text
+        console.log(y)
+        for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+          x = items[0].items[0].items[0].text[i]
+          console.log(x);
+        } */
 
 
-  /*   for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
-      x = items[0].items[0].items[0].text[i]
-      this.json_object_2 = "[" + JSON.stringify(x) + "]";
-      y = JSON.parse(this.json_object_2);
-     console.log(x);
-     
-      console.log(y); 
-      
-      
-    }*/
+    /*   for (let i: number = 0; i < items[0].items[0].items[0].text.length; i++) {
+        x = items[0].items[0].items[0].text[i]
+        this.json_object_2 = "[" + JSON.stringify(x) + "]";
+        y = JSON.parse(this.json_object_2);
+       console.log(x);
+       
+        console.log(y); 
+        
+        
+      }*/
 
 
 
@@ -435,7 +441,7 @@ z[0].push(b)
         this.FieldType[SeqNumber] = this.ForFieldType[0]
       }
       else if (LocalLabelName == 'List Number') {
-        this.FieldType[SeqNumber] = this.ForFieldType[0]
+        this.FieldType[SeqNumber] = this.ForFieldType[1]
       }
       else if (LocalLabelName == 'Records') {
         this.FieldType[SeqNumber] = this.ForFieldType[2]
