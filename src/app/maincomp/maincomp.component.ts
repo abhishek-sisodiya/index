@@ -34,9 +34,14 @@ export class MaincompComponent implements OnInit {
 
   forDiv(event): any {
 
-    if (event.item.text == 'Menu' || event.item.text == 'Saved Filters' || event.item.text == 'Activity') {
+
+    if (event.item.text == 'Menu' || event.item.text == 'Activity' || event.item.text == 'Saved Filters') {
       return false;
-    } else {
+    } else if (event.item.text == 'List Name' || event.item.text == 'List Number' ||
+      event.item.text == 'Records' || event.item.text == 'Seed Lists' || event.item.text == 'Tag' ||
+      event.item.text == 'Status' || event.item.text == 'Source' || event.item.text == 'Imported'
+      || event.item.text == 'Renamed' || event.item.text == 'Deleted' || event.item.text == 'Download'
+      || event.item.text == 'Created' || event.item.text == 'Modified' || event.item.text == 'Email Campaign') {
 
       this.ChildDivExpanded[this.ControlIndex] = true;
       this.BtnApplyExpanded[this.ControlIndex] = true;
@@ -78,6 +83,22 @@ export class MaincompComponent implements OnInit {
       }
 
       this.ControlIndex++;
+    }
+    else {
+      this.json_object_2 = [];
+      this.ChildDivExpanded = [];
+      this.LabelName = [];
+      this.dateTo = [];
+      this.dateFrom = [];
+      this.ObjectCollection = [];
+      this.BtnApplyExpanded = [];
+      this.containers = [];
+      this.ControlIndex = 0;
+      this.SpanArray1 = [];
+      this.SpanArray2 = [];
+
+      this.fromJSON(event.item.text);
+      return false;
     }
   }
 
@@ -173,7 +194,7 @@ export class MaincompComponent implements OnInit {
     let count = 0;
 
     console.log(this.containers);
-    
+
     if (this.containers.length == 0) {
       alert("Nothing to Save")
       return false;
@@ -320,6 +341,7 @@ z[0].push(b)
         
         this.fromJSON(this.json_object_2); */
 
+    console.log(event.item.text);
 
     //MAIN From Saved Filter
     this.fromJSON(event.item.text);
